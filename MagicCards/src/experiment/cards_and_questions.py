@@ -1,0 +1,292 @@
+"""Contains the two dictionaries Cards and Questions:
+
+The Cards dictionary contains information about all cards presented to participants, namely:
+- card's number (ID),
+- path where a scan of the according card is stored,
+- questions (identified by their IDs) which are asked if the respective card is chosen and
+- questions (identified by their IDs) to which the answer ist "yes" concerning the respective card.
+
+The Questions dictionary contains:
+- questions number (ID) and
+- the actual text (always a single word to which the answer is yes or no) in which the questions consist.
+
+In sum these dictionaries define the questions to be asked concerning any single card and to which questions the correct answer is yes.
+Furthermore they contain information to make any single card (scan) clearly identifiable by its number (ID)."""
+
+
+################Cards (Dictionary)###############
+#List of cards, their respective id's and the questions (identified by their id's) to which the answer ist "yes" concerning the respective card.
+Cards = {1: {
+        "card_number": 1,
+        "path": "XYZ/Magic-Cards/images/card_1.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [3, 4, 5, 14, 16, 18, 29, 33]
+    },
+    2: {
+        "card_number": 2,
+        "path": "XYZ/Magic-Cards/images/card_2.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 4, 9, 14, 15, 16, 18, 19, 23, 24, 29, 33]
+    },
+    3: {
+        "card_number": 3,
+        "path": "XYZ/Magic-Cards/images/card_3.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+         "questions_yes": [7, 9, 14, 15, 16, 18, 23]
+    },
+    4: {
+        "card_number": 4,
+        "path": "XYZ/Magic-Cards/images/card_4.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 4, 9, 12, 16, 17, 18]
+    },
+    5: {
+        "card_number": 5,
+        "path": "XYZ/Magic-Cards/images/card_5.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [4, 6, 14, 16, 18, 19, 21, 25, 28, 29] #15?
+    },
+    6: {
+        "card_number": 6,
+        "path": "XYZ/Magic-Cards/images/card_6.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [9, 10, 16, 18, 19, 20, 21, 24, 25, 26] #8?
+    },
+    7: {
+        "card_number": 7,
+        "path": "XYZ/Magic-Cards/images/card_7.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 4, 12, 14, 17, 24, 28, 29, 33]
+    },
+    8: {
+        "card_number": 8,
+        "path": "XYZ/Magic-Cards/images/card_8.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 7, 8, 10, 13, 14, 15, 17, 22, 25, 26, 28] #16? 19?
+    },
+    9: {
+        "card_number": 9,
+        "path": "XYZ/Magic-Cards/images/card_9.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 2, 8, 10, 12, 15, 16, 24, 26]
+    },
+    10: {
+        "card_number": 10,
+        "path": "XYZ/Magic-Cards/images/card_10.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 2, 3, 7, 14, 16, 18, 19, 24]
+    },
+    11: {
+        "card_number": 11,
+        "path": "XYZ/Magic-Cards/images/card_11.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 8, 14, 15, 16, 13, 24, 25, 26, 29] #4?
+    },
+    12: {
+        "card_number": 12,
+        "path": "XYZ/Magic-Cards/images/card_12.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 3, 14, 15, 16, 19, 24] #18?
+    },
+    13: {
+        "card_number": 13,
+        "path": "XYZ/Magic-Cards/images/card_13.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [8, 14, 15, 18, 26, 31, 32]
+    },
+    14: {
+        "card_number": 14,
+        "path": "XYZ/Magic-Cards/images/card_14.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [3, 7, 8, 14, 15, 16, 19, 20, 27]
+    },
+    15: {
+        "card_number": 15,
+        "path": "XYZ/Magic-Cards/images/card_15.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 3, 8, 11, 14, 15, 16, 18, 19, 24, 31]
+    },
+    16: {
+        "card_number": 16,
+        "path": "XYZ/Magic-Cards/images/card_16.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 3, 8, 14, 15, 18, 20, 24, 25]
+    },
+    17: {
+        "card_number": 17,
+        "path": "XYZ/Magic-Cards/images/card_17.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 2, 9, 10, 16, 18, 22, 24, 25, 27]
+    },
+    18: {
+        "card_number": 18,
+        "path": "XYZ/Magic-Cards/images/card_18.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [4, 5, 6, 8, 14, 15, 25, 26, 28]
+    },
+    19: {
+        "card_number": 19,
+        "path": "XYZ/Magic-Cards/images/card_19.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [11, 13, 14, 15, 16, 18, 23, 26, 32]
+    },
+    20: {
+        "card_number": 20,
+        "path": "XYZ/Magic-Cards/images/card_20.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 2, 14, 16, 24, 30] #17?
+    },
+    21: {
+        "card_number": 21,
+        "path": "XYZ/Magic-Cards/images/card_21.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 11, 14, 15, 16, 18, 24]
+    },
+    22: {
+        "card_number": 22,
+        "path": "XYZ/Magic-Cards/images/card_22.png",
+        "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [7, 15, 16, 23] #15?
+    },
+}
+
+
+################Questions (Dictionary)###############
+##Some example questions for testing at this stage
+Questions = { 1: {
+            "question_number": 1,
+            "text": "Belebtes" #living beeing(s)
+        },
+        2: {
+            "question_number": 2,
+            "text": "Fabelwesen" #mythical/fabulous creature
+        },
+        3: {
+            "question_number": 3,
+            "text": "Vogel" #bird
+        },
+        4: {
+            "question_number": 4,
+            "text": "Gebäude" #building(s)
+        },
+        5: {
+            "question_number": 5,
+            "text": "Treppe" #stairways
+        },
+        6: {
+            "question_number": 6,
+            "text": "Laterne" #lantern/lamp
+        },
+        7: {
+            "question_number": 7,
+            "text": "Wasser" #water
+        },
+        8: {
+            "question_number": 8,
+            "text": "Pflanze" #plant
+        },
+        9: {
+            "question_number": 9,
+            "text": "Maschine" #machine
+        },
+        10: {
+            "question_number": 10,
+            "text": "Hut" #hat
+        },
+        11: {
+            "question_number": 11,
+            "text": "Obst" #fruit
+        },
+        #The questions up to here should be enough to identify any card.
+        #The following questions are not strictly necessary to identify a card, if all of the questions above have been answered.
+        12: {
+            "question_number": 12,
+            "text": "Rauch" #smoke
+        },
+        13: {
+            "question_number": 13,
+            "text": "Geld" #money
+        },
+        14: {
+            "question_number": 14,
+            "text": "Gelb" #yellow
+        },
+        15: {
+            "question_number": 15,
+            "text": "Grün" #green
+        },
+        16: {
+            "question_number": 16,
+            "text": "Blau" #blue
+        },
+        17: {
+            "question_number": 17,
+            "text": "Mensch" #human beeing
+        },
+        18: {
+            "question_number": 18,
+            "text": "Metall" #metal
+        },
+        19: {
+            "question_number": 19,
+            "text": "Himmel" #sky
+        },
+        20: {
+            "question_number": 20,
+            "text": "Gefrohrenes" #something frozen
+           },
+        21: {
+            "question_number": 21,
+            "text": "Schal"  # scarf
+        },
+        22: {
+            "question_number": 22,
+            "text": "Bart"  # beard
+        },
+        23: {
+            "question_number": 23,
+            "text": "Papier"  # paper
+        },
+        24: {
+            "question_number": 24,
+            "text": "Auge"  # eye
+        },
+        25: {
+            "question_number": 25,
+            "text": "Stoff"  # cloth/fabric/textile
+        },
+        26: {
+            "question_number": 26,
+            "text": "Holz"  # wood
+        },
+        27: {
+            "question_number": 27,
+            "text": "Schrift"  # scripture/writing(s)
+        },
+        28: {
+            "question_number": 28,
+            "text": "Tür"  # door
+        },
+        29: {
+            "question_number": 29,
+            "text": "Fenster"  # window(s)
+        },
+        30: {
+            "question_number": 30,
+            "text": "Feuer"  # fire
+        },
+        31: {
+            "question_number": 31,
+            "text": "Schwert"  # sword
+        },
+        32: {
+            "question_number": 32,
+            "text": "Schlüssel"  # key
+        },
+        33: {
+            "question_number": 33,
+            "text": "Zinnen"  # merlons
+        }
+
+}
+##############################################
