@@ -1,5 +1,5 @@
 from psychopy import core, event
-from general.init import initLog, initTk, waitForKey, receiveData
+from general.init import initLog, initTk, waitForKey, receiveData, initRandomMapping
 from general.config_hardware import WIN, tk, dummyMode
 from general.messages import present_message
 from experiment.blocks import block
@@ -18,6 +18,8 @@ def main():
     ## Initializing Eyetracker ##
     dataFileName = initTk(expInfo)  # inits the eyetracker and returns the name of the eyetracker-data file
 
+    ## Initializing randomization of response keys ##
+    KeyMapping = initRandomMapping()  # Creating a dictionary which defines the keys for yes and no (randomized)
 
     ################################# Experiment ###########################################
 
@@ -30,7 +32,10 @@ def main():
     ######
 
     ##Explanations of what to do
-    present_message("explanation_initial")
+    if KeyMapping["KeyYes"] == 'r':
+        present_message("explanation_initial_yes_right")
+    else:
+        present_message("explanation_initial_yes_left")
     waitForKey(ser)
     ser.reset_input_buffer()
     ######
@@ -57,10 +62,14 @@ def main():
         else:
             present_message("choose_ready")  # "Choose a new card and advice the researcher when you are ready"
         chooseCard()  # Opens a dialog for entering a cards variable name. In the final experiment this of course should be done from another device without the dialog being shown to the participant.
-        block(practice, block_number)  # Runs a block of 10 trials
+        block(practice, block_number, KeyMapping)  # Runs a block of 10 trials
 
         if practice:
-            present_message("explanation_remember")  # Message that the practice has ended
+            if KeyMapping["KeyYes"] == 'r':
+                present_message("explanation_remember_yes_right")
+            else:
+                present_message("explanation_remember_yes_left")
+
             waitForKey(ser)
             ser.reset_input_buffer()
 

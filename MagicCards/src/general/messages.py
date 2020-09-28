@@ -17,7 +17,7 @@ Vor dir liegt ein Stapel mit Karten. Bitte wähle eine Karte.
 WEITER mit RECHTS (press RIGHT to CONTINUE)""",
 
 ### explanation_initial ###
-    "explanation_initial": """Bitte lege nun deine ZEIGEFINGER auf die beiden Tasten vor dir.
+    "explanation_initial_yes_right": """Bitte lege nun deine ZEIGEFINGER auf die beiden Tasten vor dir.
 Bei diesem Experiment musst du möglichst schnell reagieren.
 
 Im Folgenden werden dir einige Begriffe auf dem Bildschirm angezeigt.
@@ -40,6 +40,29 @@ Dann wende dich bitte an den Versuchsleiter.
 
 WEITER mit RECHTS (press RIGHT to CONTINUE)""",
 
+    "explanation_initial_yes_left": """Bitte lege nun deine ZEIGEFINGER auf die beiden Tasten vor dir.
+Bei diesem Experiment musst du möglichst schnell reagieren.
+
+Im Folgenden werden dir einige Begriffe auf dem Bildschirm angezeigt.
+Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
+Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+
+Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
+
+
+    es gibt etwas, dass dem Begriff entspricht:
+        LINKE TASTE
+
+    es gibt nichts, dass dem Begriff entspricht:
+        RECHTE TASTE
+
+
+HAST DU NOCH FRAGEN?
+Dann wende dich bitte an den Versuchsleiter.
+
+
+WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+
 ### practice ###
     "practice": """Zunächst ein paar Fragen zum Üben.
 
@@ -53,7 +76,7 @@ STARTEN mit RECHTS""",
     "choose_ready": "Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist",
 
 ### explanation_remember ###
-    "explanation_remember": """Something, something, something...
+    "explanation_remember_yes_right": """Something, something, something...
 
         Zur Erinnerung:
 
@@ -69,6 +92,23 @@ STARTEN mit RECHTS""",
 
 
         WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+
+    "explanation_remember_yes_left": """Something, something, something...
+
+    Zur Erinnerung:
+
+    es gibt etwas, dass dem Begriff entspricht:
+    LINKE TASTE
+
+    es gibt nichts, dass dem Begriff entspricht:
+    RECHTE TASTE
+
+
+    HAST DU NOCH FRAGEN?
+    Dann wende dich bitte an den Versuchsleiter.
+
+
+    WEITER mit RECHTS (press RIGHT to CONTINUE)""",
 
 ### calibration ###
     "calibration": "Calibration \n\nSTARTEN mit RECHTS",

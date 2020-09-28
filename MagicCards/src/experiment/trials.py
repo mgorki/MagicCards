@@ -1,4 +1,4 @@
-from general.variables import timer, ser, q
+from general.variables import timer, ser#, q
 from general.config_hardware import WIN, tk
 from general.messages import present_message
 from general import effects
@@ -14,6 +14,7 @@ def trial(word):
     key = ""
     timestamp_reaction = 0  # to make sure the value from the last trial is not carried over if no reaction in this one
     timestamp_effect = 0  # to make sure the value from the last trial is not carried over if no reaction in this one
+    button_pressed = False
 
     ##Presenting the stimulus (i.e. the word)
     present_message("blackscreen")  # Blackscreen
@@ -22,7 +23,7 @@ def trial(word):
     target.draw()
     ser.reset_input_buffer()  # flushing the input buffer
     core.wait(0.2)
-    q.queue.clear()  # flushing the queue
+    #q.queue.clear()  # flushing the queue
     timer.reset(newT=0.0)
     print(word)  # for testing only
     timestamp_target = timer.getTime()
@@ -30,7 +31,11 @@ def trial(word):
     WIN.flip()  # display the stimulus
 
     while True:
-        if not q.empty():
+        key_input = ser.readline().decode().strip('\r\n')
+        if (len(key_input) > 0) and not ((key_input == "00") or (key_input == '0')):
+            key_input = True
+            print(key_input)  # For testing
+        #if not q.empty():
             timestamp_reaction = timer.getTime()
             tk.sendMessage('%d ResponseFrameOnset')
 
@@ -44,7 +49,8 @@ def trial(word):
                 break
 
             else:
-                key = q.get()
+                #key = q.get()
+                key = key_input
                 WIN.flip()
                 effects.reaction(key)
                 inTime = True
@@ -54,14 +60,14 @@ def trial(word):
                 break
 
         ##Presents a blackscreen after 0.5 seconds
-        elif ((timestamp_target + 2) >= timer.getTime() > (timestamp_target + 0.5)) and q.empty():  # Value to be adjusted for final experiment
+        elif ((timestamp_target + 2) >= timer.getTime() > (timestamp_target + 0.5)) and not button_pressed: #q.empty():  # Value to be adjusted for final experiment
             WIN.flip()
             event.clearEvents()
             present_message("blackscreen")  # Blackscreen
 
 
         ##If there is no response within the given timeframe -> "Too late"
-        elif (timer.getTime() > (timestamp_target + 2)) and q.empty():
+        elif (timer.getTime() > (timestamp_target + 2)) and not button_pressed: #q.empty():
             event.clearEvents()
             present_message("late")  # "Too late"
             tooLate = True

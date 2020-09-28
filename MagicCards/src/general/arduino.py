@@ -1,6 +1,6 @@
 from psychopy import core, event, gui
 from general.config_hardware import WIN
-from general.variables import ser, q
+from general.variables import ser#, q
 
 
 ##Selected Card of a certain block (Dictionary)
@@ -12,9 +12,9 @@ card_input = {"card_selected": "input"} #For storing the information on the card
 def readSer():
     while True:
         key_input = ser.readline().decode().strip('\r\n')
-        if (len(key_input) > 0) and not (key_input == 0):
+        if (len(key_input) > 0) and not ((key_input == "00") or (key_input == 0)):
             print(key_input + " pressed")     # For testing
-            q.put(key_input)
+            #q.put(key_input)
             break
 
 
@@ -24,12 +24,14 @@ def chooseCard():  ##Opens a dialog for entering a cards number (== variablename
     ser.reset_input_buffer()
 
     ## Code for using the keypad (Arduino) ##
-    pad = ser.readline().decode().rstrip().strip('#')  # read a byte string, decode this byte string into Unicode and remove \n and \r and #
-    if pad != "":
-        print(pad) #for testing
-        if pad != "99" and pad != 'r' and pad != 'l':  # r and l are explicitly excluded here in order to avoid data-type-errors caused by unintentional button presses (of left or right button)
+    while True:
+        pad = ser.readline().decode().rstrip().strip('#')  # read a byte string, decode this byte string into Unicode and remove \n and \r and #
+        print(pad)  # for testing
+        if pad != '' and pad != '00' and pad != '0' and pad != "99" and pad != 'r' and pad != 'l':  # r and l are explicitly excluded here in order to avoid data-type-errors caused by unintentional button presses (of left or right button)
+            print(pad)  # for testing
             card_input["card_selected"] = pad.lstrip('0') # strip the input of any leading zeros
             # pad_data.append(pad_int) # add to the end of data list
+            break
         elif pad == "99":
         ###Showing a window to confirm aborting the experiment. This is intended as a measure against aborting the whole experiment by accident.
             cardDlg = gui.Dlg(title="Abort/Continue")
@@ -38,10 +40,11 @@ def chooseCard():  ##Opens a dialog for entering a cards number (== variablename
             if cardDlg.OK:
                 print('user cancelled')
                 exit()
+                break
             else:
                 chooseCard()
         else:
-            chooseCard()
+            pass
 
     WIN.flip()
     event.clearEvents()

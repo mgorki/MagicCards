@@ -6,6 +6,7 @@ import os
 from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 import pylink
 from experiment.config_experiment import behaviour, edfDataFolder
+import random
 
 
 def initLog():
@@ -113,3 +114,20 @@ def receiveData(dataFileName):
         os.mkdir(edfDataFolder)
     tk.receiveDataFile(dataFileName, 'edfData' + os.sep + dataFileName)
     print("Data saved to: " + dataFileName, 'edfData' + os.sep + dataFileName)  # For testing
+
+def initRandomMapping():
+    rand = random.getrandbits(1)
+    if int(rand) == 0:
+        key_yes = 'r'
+        key_no = 'l'
+    else:
+        key_yes = 'l'
+        key_no = 'r'
+
+    KeyMapping = {
+        "KeyYes": key_yes,
+        "KeyNo": key_no,
+    }
+
+    print(KeyMapping)  # For testing
+    return KeyMapping
