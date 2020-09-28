@@ -1,15 +1,15 @@
 #include <Keypad.h>
 
-// Include RadioHead Amplitude Shift Keying Library
-#include <RH_ASK.h>
-// Include dependant SPI Library 
-#include <SPI.h> 
+//// Include RadioHead Amplitude Shift Keying Library
+//#include <RH_ASK.h>
+//// Include dependant SPI Library 
+//#include <SPI.h> 
 
 // include the LiquidCrystal library for use of the LCD-screen:
 #include <LiquidCrystal.h>
 
-// Create Amplitude Shift Keying Object
-RH_ASK rf_driver;
+//// Create Amplitude Shift Keying Object
+//RH_ASK rf_driver;
 
 // initialize the LiquidCrystal library with the numbers of the interface pins
 LiquidCrystal lcd(A0, A1, A2, A3, A4, A5);
@@ -34,7 +34,7 @@ String card_number;
 void setup(){
   Serial.begin(9600);
   card_number.reserve(3); // maximum input characters is 2 (plus NULL character), change if needed
-  rf_driver.init(); // Initialize ASK Object
+//  rf_driver.init(); // Initialize ASK Object
 
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
@@ -53,15 +53,13 @@ void loop(){
   char key = keypad.getKey();
   
   if (key){
-    Serial.println(key); // for testing
-
     // Confirming (= sending) the current number   
     if(key == '#') {
-      Serial.println(card_number); // for testing
       if (card_number.length() == 2) {
         const char *msg = card_number.c_str();
-        rf_driver.send((uint8_t *)msg, strlen(msg));
-        rf_driver.waitPacketSent();
+        //rf_driver.send((uint8_t *)msg, strlen(msg));
+        //rf_driver.waitPacketSent();
+        Serial.println(msg);
         lcd.print(" sent");
         delay(1000);
         card_number = "";
