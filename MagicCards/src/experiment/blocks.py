@@ -1,21 +1,23 @@
 import random
-from psychopy import core
-from threading import Thread
+from psychopy import core, visual, core
+#from threading import Thread
 from experiment.cards_and_questions import Cards, Questions
 from general.init import waitForKey
-from general.config_hardware import tk, dummyMode
+from general.config_hardware import tk, dummyMode, WIN
 from general.messages import present_message
 from experiment.trials import trial
-from general.variables import ser, ITI500#, q
+#from general.variables import ser, ITI500, RandomMapping#, q
 from experiment.config_experiment import behaviour, trial_max
-from general.arduino import card_input, readSer
+from general.arduino import card_input#, readSer
+import general.variables as variables
+from experiment.show_image import show_cardimage
 
 
-def checkCorrectness(word_number, card_number, data, KeyMapping):  # Function returns whether response is correct or not (boolean)
+def checkCorrectness(word_number, card_number, data, RandomMapping):  # Function returns whether response is correct or not (boolean)
     if (int(word_number) in (Cards[int(card_number)]["questions_yes"])):  # true if answer should be yes
-        response_should = KeyMapping["KeyYes"]
+        response_should = RandomMapping["KeyYes"]
     else:
-        response_should = KeyMapping["KeyNo"]
+        response_should = RandomMapping["KeyNo"]
 
     if data["Response"] == response_should:  # True if the actual response matches the correct response
         return True
@@ -39,16 +41,16 @@ def sendBehavData(data):
     else:
         pass
 
-def block(practice, block_number, KeyMapping):
+def block(practice, block_number):
     ################ Block structure (after choosing a card) ################
     ##Preparing the next trials
     if not (dummyMode or practice):
         present_message("calibration")
-        waitForKey(ser)
+        waitForKey(variables.ser)
         tk.doTrackerSetup() #Calibrating the eyetracker
     core.wait(0.5)
     # io.clearEvents(device_label='all')  #Flushing the buffer. In the final experiment to be replaced by the following line
-    ser.reset_input_buffer()
+    variables.ser.reset_input_buffer()
 
     ##Creating a randomized List of questions for one block
     card_number = (card_input['card_selected'])
@@ -58,11 +60,15 @@ def block(practice, block_number, KeyMapping):
     ## Setting number of initial trial to 1
     trial_number = 1
 
+    present_message("start_ready")  # "Einrichtung abgeschlossen. Zum STARTEN: RECHTS"
+    waitForKey(variables.ser)
+    variables.ser.reset_input_buffer()
+
     ##Setting up a trial-counter and a loop for a block of 10 trials
     while trial_number <= trial_max:
-        # thr1 = Thread(target=readSer)
-        # thr1.daemon = True
-        # thr1.start()
+        '''thr1 = Thread(target=readSer)
+        thr1.daemon = True
+        thr1.start()'''
 
         ##Defining the word used in the respective trial from the randomized wordlist
         word_number = questionlist[int(trial_number - 1)]  # Choosing the 1st, 2nd 3rd... word from the (randomized) list. This variable could also be just the variable "word" used below but I defined an extra variable for more clarity.
@@ -74,16 +80,21 @@ def block(practice, block_number, KeyMapping):
         data = {
             "BlockNumber": block_number,
             "TrialNumber": trial_number,
-            "ITIoffset": ITI500,
+            "ITIoffset": variables.ITI500,
             "CardNumber": card_number,
-            "KeyMapping": KeyMapping,
+            "RandomMapping": variables.RandomMapping,
         }
         data.update(trial(word))  # Calling trial function and appending data from this trial to data dictionary.
-        data.update({"ResponseCorrect": checkCorrectness(word_number, card_number, data, KeyMapping)})  # Checking whether response was correct and appending this information (boolean) to data
+        data.update({"ResponseCorrect": checkCorrectness(word_number, card_number, data, variables.RandomMapping)})  # Checking whether response was correct and appending this information (boolean) to data
 
         sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
 
         trial_number = trial_number + 1
 
-        ser.reset_input_buffer()  # flush the input buffer
-#        q.queue.clear()  # flushing the queue
+        variables.ser.reset_input_buffer()  # flush the input buffer
+        #variables.q.queue.clear()  # flushing the queue
+
+    present_message("card_image")  # Your card was probably:
+    core.wait(5)
+    show_cardimage(card_number)  # Present image of card
+    core.wait(5)

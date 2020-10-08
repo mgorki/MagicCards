@@ -1,10 +1,10 @@
 from psychopy import core, event
-from general.init import initLog, initTk, waitForKey, receiveData, initRandomMapping
+from general.init import initLog, initTk, waitForKey, receiveData, initRandomMapping, initSer
 from general.config_hardware import WIN, tk, dummyMode
 from general.messages import present_message
 from experiment.blocks import block
 from experiment.config_experiment import behaviour, block_max
-from general.variables import ser
+import general.variables as variables
 from general.arduino import chooseCard
 
 
@@ -12,39 +12,44 @@ def main():
     ###################Experiment starting sequence###########################
     tk.sendMessage('%d ITIoffset' % 0)
 
-    ## 2 Basic info dialog, defining participants number, dominant eye & hand, basic demografics ##
+    ## Initializing serial connection to Arduino ##
+    initSer() ## stored in variables.ser
+    print(variables.ser)  # For testing
+
+    ## Basic info dialog, defining participants number, dominant eye & hand, basic demografics ##
     expInfo = initLog()  # participant info
 
     ## Initializing Eyetracker ##
     dataFileName = initTk(expInfo)  # inits the eyetracker and returns the name of the eyetracker-data file
 
-    ## Initializing randomization of response keys ##
-    KeyMapping = initRandomMapping()  # Creating a dictionary which defines the keys for yes and no (randomized)
+    ## Initializing randomization of response keys and effect colors ##
+    initRandomMapping()  # Randomized assignment of effect colors and key for yes/no (stored in variables.RandomMapping)
+    print(variables.RandomMapping)  # For testing
 
     ################################# Experiment ###########################################
 
     #######Wellcoming message#######
     ## Pick a card from the stack
     present_message("welcome")
-    waitForKey(ser)
-    ser.reset_input_buffer()
+    waitForKey(variables.ser)
+    variables.ser.reset_input_buffer()
 
     ######
 
     ##Explanations of what to do
-    if KeyMapping["KeyYes"] == 'r':
+    if variables.RandomMapping["KeyYes"] == 'r':
         present_message("explanation_initial_yes_right")
     else:
         present_message("explanation_initial_yes_left")
-    waitForKey(ser)
-    ser.reset_input_buffer()
+    waitForKey(variables.ser)
+    variables.ser.reset_input_buffer()
     ######
 
     ###### Practice #####
     ##First some questions for practice
     present_message("practice")
-    waitForKey(ser)
-    ser.reset_input_buffer()
+    waitForKey(variables.ser)
+    variables.ser.reset_input_buffer()
 
 
     ################ Block Structure ################
@@ -59,19 +64,27 @@ def main():
         ## Choosing a (new) card and running a block ##
         if practice:
             present_message("practice_ready")  # "Please advice the researcher when you are ready"
+            waitForKey(variables.ser)
+            variables.ser.reset_input_buffer()
         else:
             present_message("choose_ready")  # "Choose a new card and advice the researcher when you are ready"
-        chooseCard()  # Opens a dialog for entering a cards variable name. In the final experiment this of course should be done from another device without the dialog being shown to the participant.
-        block(practice, block_number, KeyMapping)  # Runs a block of 10 trials
+            waitForKey(variables.ser)
+            variables.ser.reset_input_buffer()
+
+        ## Presenting a message about some initialization
+        present_message("initialization")
+        chooseCard()  # At this point the researcher gives input on the chosen card via the Arduino's numpad
+
+        block(practice, block_number)  # Runs a block of 10 trials
 
         if practice:
-            if KeyMapping["KeyYes"] == 'r':
+            if variables.RandomMapping["KeyYes"] == 'r':
                 present_message("explanation_remember_yes_right")
             else:
                 present_message("explanation_remember_yes_left")
 
-            waitForKey(ser)
-            ser.reset_input_buffer()
+            waitForKey(variables.ser)
+            variables.ser.reset_input_buffer()
 
         block_number = block_number + 1  # raises the block_number after each block by one
 
@@ -83,7 +96,7 @@ def main():
 
     ################  Thank you message and end sequence  ################
     present_message("thanks")
-    waitForKey(ser)
+    waitForKey(variables.ser)
     event.clearEvents()
     print("experiment completed", file=behaviour)
     #############################################################################
@@ -91,7 +104,7 @@ def main():
     # make sure everything is closed down
     behaviour.close()
     tk.close()
-    ser.close()
+    variables.ser.close()
     WIN.close()
     core.quit()
 
