@@ -1,12 +1,14 @@
 from psychopy import gui, core
 import serial, serial.tools.list_ports
 import time
-from general.config_hardware import WIN, tk, scnWIDTH, scnHEIGHT, BAUDRATE, ARD_VID_PID
+from general.config_hardware import WIN, tk, scnWIDTH, scnHEIGHT, BAUDRATE, ARD_VID_PID, ARD_NAME
 import os
 from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 import pylink
 from experiment.config_experiment import behaviour, edfDataFolder
 import random
+import general.variables as variables
+
 
 
 def initLog():
@@ -43,9 +45,9 @@ def initSer():  # set up the serial line for numberpad input and for the buttons
         print("No Arduino found, is it connected to a valid port? Crashing now.")
     elif len(arduinos) == 1:
         try:
-            ser = serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
+            variables.ser = serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
             print("connected to Arduino at: %s with baudrate: %s" % (arduinos[0], BAUDRATE))
-            return ser
+            return serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
         except:
             print("There was an error at connecting to the Arduino. Is everything connected and configured properly?")
     else:
@@ -54,17 +56,57 @@ def initSer():  # set up the serial line for numberpad input and for the buttons
     time.sleep(2)
 
 
+'''def initSer():  # set up the serial line for numberpad input and for the buttons I used via the same Arduino
+    ports = serial.tools.list_ports.comports(include_links=False)
+    arduinos = []
+    for port in ports:
+        if (ARD_VID_PID or ARD_NAME) in port.description:
+            arduinos.append(port.device)  ## Init buttons
+            print("Arduino found at: " + port.device)
+        else:
+            pass
+
+    if len(arduinos) == 0:
+        print("No Arduino found, is it connected to a valid port? Crashing now.")
+    elif len(arduinos) == 1:
+        try:
+            variables.ser = serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
+            print("connected to Arduino at: %s with baudrate: %s" % (arduinos[0], BAUDRATE))
+        except:
+            print("There was an error at connecting to the Arduino. Is everything connected and configured properly?")
+    else:
+        print("""More than one Arduino connected! 
+        Make sure only one such device is connected and/or that the Arduinos VID:PID and its clear name are specific. 
+        Crashing now.""")
+
+    time.sleep(2)'''
+
+
 def waitForKey(ser):
-    core.wait(.5)
+    core.wait(.1)
     ser.reset_input_buffer()  # reset buttons
+
     while True:
+        a = ser.read()
+        print(a)  # for testing
+        if a == b"*":
+            a = ser.read(size=2)
+            print("button state")  # for testing
+            print(a)
+            if a != b'01':
+                pass
+            else:
+                ser.reset_input_buffer()  # reset buttons
+                break
+
+'''        while True:
         a = ser.readline().decode().rstrip()  # read button inputs, decode byte string into Unicode, remove \n and \r
         if a != 'r':
             pass
         else:
             ser.reset_input_buffer()  # reset buttons
             break
-
+'''
 
 def initTk(expInfo):
     ## Data host ##
@@ -115,19 +157,34 @@ def receiveData(dataFileName):
     tk.receiveDataFile(dataFileName, 'edfData' + os.sep + dataFileName)
     print("Data saved to: " + dataFileName, 'edfData' + os.sep + dataFileName)  # For testing
 
+
 def initRandomMapping():
-    rand = random.getrandbits(1)
-    if int(rand) == 0:
-        key_yes = 'r'
-        key_no = 'l'
+    ## Randomized assignment of left/right key to answer yes/no ##
+    randmap = random.getrandbits(1)
+    if int(randmap) == 0:
+        KeyMapping = {
+            "KeyYes": 'r',
+            "KeyNo": 'l'
+        }
     else:
-        key_yes = 'l'
-        key_no = 'r'
+        KeyMapping = {
+            "KeyYes": 'l',
+            "KeyNo": 'r'
+        }
 
-    KeyMapping = {
-        "KeyYes": key_yes,
-        "KeyNo": key_no,
-    }
+    ## Randomized assignment of colors to the effects of keypresses (circles) ##
+    randeff = random.getrandbits(1)
+    if int(randeff) == 0:
+        ColorMapping = {
+            "ColorLeft": 'yellow',
+            "ColorRight": 'blue'
+        }
+    else:
+        ColorMapping = {
+            "ColorLeft": 'blue',
+            "ColorRight": 'yellow'
+        }
 
-    print(KeyMapping)  # For testing
-    return KeyMapping
+    variables.RandomMapping = {**KeyMapping, **ColorMapping}  # Stores assignments in variables.RandomMapping dict
+
+

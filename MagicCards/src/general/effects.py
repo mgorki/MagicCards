@@ -1,14 +1,15 @@
 from psychopy import visual, core
 from general.config_hardware import WIN
+import general.variables as variables
 
 def circle(side):
     circleD = visual.GratingStim(WIN, color=(0, 1, 1), colorSpace='rgb', tex=None, mask='circle', size=30, pos=(0, 0))
 
     if side == 'right':
-        circleD.color = "blue"
+        circleD.color = str(variables.RandomMapping["ColorLeft"])
         circleD.pos = (120, 0)
     else:
-        circleD.color = "yellow"
+        circleD.color = str(str(variables.RandomMapping["ColorRight"]))
         circleD.pos = (-120, 0)
 
     circleD.draw()

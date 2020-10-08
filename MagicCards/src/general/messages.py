@@ -67,13 +67,30 @@ WEITER mit RECHTS (press RIGHT to CONTINUE)""",
     "practice": """Zunächst ein paar Fragen zum Üben.
 
 
-STARTEN mit RECHTS""",
+WEITER mit RECHTS""",
 
-###practice_ready ###
-    "practice_ready": "Bitte sag dem Versuchsleiter Bescheid, wenn du bereit bist",
+### practice_ready ###
+    "practice_ready": """Bitte sag dem Versuchsleiter Bescheid, wenn du bereit bist,
+    
+    
+DANACH: Weiter mit RECHTS""" ,
 
 ### choose_ready ###
-    "choose_ready": "Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist",
+    "choose_ready": """Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist    
+    
+    
+DANACH: Weiter mit RECHTS""" ,
+
+### initialization ###
+    "initialization": """Experiment wird initialisiert. 
+    
+Dies kann einen Moment dauern.""",
+
+### ready to start ###
+    "start_ready": """Einrichtung abgeschlossen.    
+
+
+Zum STARTEN: RECHTS""",
 
 ### explanation_remember ###
     "explanation_remember_yes_right": """Something, something, something...
@@ -112,6 +129,9 @@ STARTEN mit RECHTS""",
 
 ### calibration ###
     "calibration": "Calibration \n\nSTARTEN mit RECHTS",
+
+### was this your card? ###
+    "card_image": "Die Karte war wahrscheinlich:",
 
 ### thanks ###
     "thanks": """
