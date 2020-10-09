@@ -32,7 +32,7 @@ Keypad keypad = Keypad( makeKeymap(keys), pin_rows, pin_column, ROW_NUM, COLUMN_
 String card_number;
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(38400);
   card_number.reserve(3); // maximum input characters is 2 (plus NULL character), change if needed
 //  rf_driver.init(); // Initialize ASK Object
 
