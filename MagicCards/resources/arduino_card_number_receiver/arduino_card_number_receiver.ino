@@ -99,7 +99,7 @@ void passNumber() {
  {
    Serial.write("#");
    Serial.println(msg);
-   delay(2000);
+   delay(100);
    newNumber = false;
  }
 }
