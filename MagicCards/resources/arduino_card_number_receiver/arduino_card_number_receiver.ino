@@ -11,12 +11,13 @@
 
 const byte numChars = 32;
 char msg[numChars]; // an array to store the received data
+byte button_msg[2]; // an array for sending the button states to the pc 
 
 boolean newNumber = false;
 
 // For the buttons
 const int pinButtonRight = 2;
-const int pinButtonLeft = 3;
+const int pinButtonLeft = 4;
 
 void setup()
 {
@@ -27,7 +28,7 @@ void setup()
 //    // Initialize ASK Object
 //    rf_driver.init();
     // Setup Serial Monitor
-    Serial.begin(9600);
+    Serial.begin(38400);
 }
  
 void loop()
@@ -44,25 +45,27 @@ void loop()
 
     RecvEndMarkerNewline();
     passNumber();
+    newNumber = false;
     
     // For the buttons
     int stateButtonRight = digitalRead(pinButtonRight);
     int stateButtonLeft = digitalRead(pinButtonLeft);
+
+    button_msg[0] = 0x30;
+    button_msg[1] = 0x30; 
+      
     if(stateButtonRight == 1) 
       {
-      Serial.write("r");
-      Serial.write('\n'); 
-      } 
-    else if(stateButtonLeft == 1) 
-      {
-      Serial.write("l");
-      Serial.write('\n'); 
+      button_msg[0] = 0x31;
       }
-    else
-    {
-      Serial.write("00");
-      Serial.write('\n');   
-    }
+    if(stateButtonLeft == 1) 
+      {
+      button_msg[1] = 0x31;
+      }
+
+    Serial.write("*"); 
+    Serial.write(button_msg, 2);
+
 }
 
 void RecvEndMarkerNewline() {
@@ -71,7 +74,7 @@ void RecvEndMarkerNewline() {
    char rc;
    
    // if (Serial.available() > 0) {
-             while (Serial.available() > 0 && newNumber == false) {
+   while (Serial.available() > 0 && newNumber == false) {
    rc = Serial.read();
   
    if (rc != endMarker) 
@@ -94,8 +97,9 @@ void RecvEndMarkerNewline() {
 void passNumber() {
  if (newNumber == true) 
  {
-   Serial.write(msg);
-   Serial.write('\n');
+   Serial.write("#");
+   Serial.println(msg);
+   delay(2000);
    newNumber = false;
  }
 }
