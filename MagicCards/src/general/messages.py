@@ -71,23 +71,23 @@ WEITER mit RECHTS""",
 
 ### practice_ready ###
     "practice_ready": """Bitte sag dem Versuchsleiter Bescheid, wenn du bereit bist,
-    
-    
+
+
 DANACH: Weiter mit RECHTS""" ,
 
 ### choose_ready ###
-    "choose_ready": """Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist    
-    
-    
+    "choose_ready": """Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist
+
+
 DANACH: Weiter mit RECHTS""" ,
 
 ### initialization ###
-    "initialization": """Experiment wird initialisiert. 
-    
+    "initialization": """Experiment wird initialisiert.
+
 Dies kann einen Moment dauern.""",
 
 ### ready to start ###
-    "start_ready": """Einrichtung abgeschlossen.    
+    "start_ready": """Einrichtung abgeschlossen.
 
 
 Zum STARTEN: RECHTS""",
@@ -104,21 +104,21 @@ Zum STARTEN: RECHTS""",
         LINKE TASTE
 
 
-        HAST DU NOCH FRAGEN?
-        Dann wende dich bitte an den Versuchsleiter.
+    HAST DU NOCH FRAGEN?
+    Dann wende dich bitte an den Versuchsleiter.
 
 
-        WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+    WEITER mit RECHTS (press RIGHT to CONTINUE)""",
 
     "explanation_remember_yes_left": """Something, something, something...
 
-    Zur Erinnerung:
+        Zur Erinnerung:
 
-    es gibt etwas, dass dem Begriff entspricht:
-    LINKE TASTE
+        es gibt etwas, dass dem Begriff entspricht:
+        LINKE TASTE
 
-    es gibt nichts, dass dem Begriff entspricht:
-    RECHTE TASTE
+        es gibt nichts, dass dem Begriff entspricht:
+        RECHTE TASTE
 
 
     HAST DU NOCH FRAGEN?
@@ -128,10 +128,29 @@ Zum STARTEN: RECHTS""",
     WEITER mit RECHTS (press RIGHT to CONTINUE)""",
 
 ### calibration ###
-    "calibration": "Calibration \n\nSTARTEN mit RECHTS",
+    "calibration": "Kalibrierung des Eyetrackers \n\nSTARTEN mit RECHTS",
 
-### was this your card? ###
+### the card was probably ###
     "card_image": "Die Karte war wahrscheinlich:",
+
+### was this the correct card?  ###
+    "card_correct_right": """War das die richtige Karte?
+
+        Falls ja:
+        RECHTE TASTE
+
+        Falls nein:
+        LINKE TASTE""",
+
+    "card_correct_left": """War das die richtige Karte?
+
+        Falls ja:
+        LINKE TASTE
+
+        Falls nein:
+        RECHTE TASTE""",
+
+
 
 ### thanks ###
     "thanks": """

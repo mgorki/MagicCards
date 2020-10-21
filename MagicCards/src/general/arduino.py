@@ -41,6 +41,7 @@ def chooseCard():  ##Opens a dialog for entering a cards number (== variablename
             print("waiting")
             print(pad)
         if pad == b'#':
+            print(pad)  # for testing
             pad = ser.readline().decode().rstrip()
             print(pad)  # for testing
             pad = int(pad)
@@ -71,4 +72,3 @@ def chooseCard():  ##Opens a dialog for entering a cards number (== variablename
     WIN.flip()
     event.clearEvents()
     core.wait(1)
-

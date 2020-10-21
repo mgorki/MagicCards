@@ -2,7 +2,8 @@
 #from general import init
 from psychopy import core
 
-ser = ""  # Placeholder: serial connection to Arduino to which the buttons are connected stored here by init.initSer()
+infoBuffer = {}  # Placeholder for information stored by te initial dialog (dialog.py)
+ser = ''  # Placeholder: serial connection to Arduino to which the buttons are connected stored here by init.initSer()
 #q = queue.Queue()  # queue for threads
 timer = core.Clock()  # init the timer
 ITI500 = timer.getTime()

@@ -18,133 +18,133 @@ Furthermore they contain information to make any single card (scan) clearly iden
 #List of cards, their respective id's and the questions (identified by their id's) to which the answer ist "yes" concerning the respective card.
 Cards = {1: {
         "card_number": 1,
-        "path": "resources/images/card_1.png",
+        "path": "../../MagicCards/resources/images/card_1.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [3, 4, 5, 14, 16, 18, 29, 33]
     },
     2: {
         "card_number": 2,
-        "path": "resources/images/card_2.png",
+        "path": "../../MagicCards/resources/images/card_2.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 4, 9, 14, 15, 16, 18, 19, 23, 24, 29, 33]
     },
     3: {
         "card_number": 3,
-        "path": "resources/images/card_3.png",
+        "path": "../../MagicCards/resources/images/card_3.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
          "questions_yes": [7, 9, 14, 15, 16, 18, 23]
     },
     4: {
         "card_number": 4,
-        "path": "resources/images/card_4.png",
+        "path": "../../MagicCards/resources/images/card_4.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 4, 9, 12, 16, 17, 18]
     },
     5: {
         "card_number": 5,
-        "path": "resources/images/card_5.png",
+        "path": "../../MagicCards/resources/images/card_5.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [4, 6, 14, 16, 18, 19, 21, 25, 28, 29] #15?
     },
     6: {
         "card_number": 6,
-        "path": "resources/images/card_6.png",
+        "path": "../../MagicCards/resources/images/card_6.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [9, 10, 16, 18, 19, 20, 21, 24, 25, 26] #8?
     },
     7: {
         "card_number": 7,
-        "path": "resources/images/card_7.png",
+        "path": "../../MagicCards/resources/images/card_7.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 4, 12, 14, 17, 24, 28, 29, 33]
     },
     8: {
         "card_number": 8,
-        "path": "resources/images/card_8.png",
+        "path": "../../MagicCards/resources/images/card_8.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 7, 8, 10, 13, 14, 15, 17, 22, 25, 26, 28] #16? 19?
     },
     9: {
         "card_number": 9,
-        "path": "resources/images/card_9.png",
+        "path": "../../MagicCards/resources/images/card_9.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 2, 8, 10, 12, 15, 16, 24, 26]
     },
     10: {
         "card_number": 10,
-        "path": "resources/images/card_10.png",
+        "path": "../../MagicCards/resources/images/card_10.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 2, 3, 7, 14, 16, 18, 19, 24]
     },
     11: {
         "card_number": 11,
-        "path": "resources/images/card_11.png",
+        "path": "../../MagicCards/resources/images/card_11.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 8, 14, 15, 16, 13, 24, 25, 26, 29] #4?
     },
     12: {
         "card_number": 12,
-        "path": "resources/images/card_12.png",
+        "path": "../../MagicCards/resources/images/card_12.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 3, 14, 15, 16, 19, 24] #18?
     },
     13: {
         "card_number": 13,
-        "path": "resources/images/card_13.png",
+        "path": "../../MagicCards/resources/images/card_13.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [8, 14, 15, 18, 26, 31, 32]
     },
     14: {
         "card_number": 14,
-        "path": "resources/images/card_14.png",
+        "path": "../../MagicCards/resources/images/card_14.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [3, 7, 8, 14, 15, 16, 19, 20, 27]
     },
     15: {
         "card_number": 15,
-        "path": "resources/images/card_15.png",
+        "path": "../../MagicCards/resources/images/card_15.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 3, 8, 11, 14, 15, 16, 18, 19, 24, 31]
     },
     16: {
         "card_number": 16,
-        "path": "resources/images/card_16.png",
+        "path": "../../MagicCards/resources/images/card_16.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 3, 8, 14, 15, 18, 20, 24, 25]
     },
     17: {
         "card_number": 17,
-        "path": "resources/images/card_17.png",
+        "path": "../../MagicCards/resources/images/card_17.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 2, 9, 10, 16, 18, 22, 24, 25, 27]
     },
     18: {
         "card_number": 18,
-        "path": "resources/images/card_18.png",
+        "path": "../../MagicCards/resources/images/card_18.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [4, 5, 6, 8, 14, 15, 25, 26, 28]
     },
     19: {
         "card_number": 19,
-        "path": "resources/images/card_19.png",
+        "path": "../../MagicCards/resources/images/card_19.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [11, 13, 14, 15, 16, 18, 23, 26, 32]
     },
     20: {
         "card_number": 20,
-        "path": "resources/images/card_20.png",
+        "path": "../../MagicCards/resources/images/card_20.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 2, 14, 16, 24, 30] #17?
     },
     21: {
         "card_number": 21,
-        "path": "resources/images/card_21.png",
+        "path": "../../MagicCards/resources/images/card_21.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [1, 11, 14, 15, 16, 18, 24]
     },
     22: {
         "card_number": 22,
-        "path": "resources/images/card_22.png",
+        "path": "../../MagicCards/resources/images/card_22.jpg",
         "questions_asked": [1, 2, 3, 14, 15, 16, 17, 28, 29, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
         "questions_yes": [7, 15, 16, 23] #15?
     },

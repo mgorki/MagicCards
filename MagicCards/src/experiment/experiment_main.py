@@ -6,6 +6,8 @@ from experiment.blocks import block
 from experiment.config_experiment import behaviour, block_max
 import general.variables as variables
 from general.arduino import chooseCard
+import ast
+
 
 
 def main():
@@ -17,7 +19,8 @@ def main():
     print(variables.ser)  # For testing
 
     ## Basic info dialog, defining participants number, dominant eye & hand, basic demografics ##
-    expInfo = initLog()  # participant info
+    expInfo = variables.infoBuffer
+    print(expInfo, file=behaviour)
 
     ## Initializing Eyetracker ##
     dataFileName = initTk(expInfo)  # inits the eyetracker and returns the name of the eyetracker-data file
@@ -31,6 +34,7 @@ def main():
     #######Wellcoming message#######
     ## Pick a card from the stack
     present_message("welcome")
+    core.wait(0.5)
     waitForKey(variables.ser)
     variables.ser.reset_input_buffer()
 
@@ -41,6 +45,7 @@ def main():
         present_message("explanation_initial_yes_right")
     else:
         present_message("explanation_initial_yes_left")
+    core.wait(0.5)
     waitForKey(variables.ser)
     variables.ser.reset_input_buffer()
     ######
@@ -64,12 +69,11 @@ def main():
         ## Choosing a (new) card and running a block ##
         if practice:
             present_message("practice_ready")  # "Please advice the researcher when you are ready"
-            waitForKey(variables.ser)
-            variables.ser.reset_input_buffer()
         else:
             present_message("choose_ready")  # "Choose a new card and advice the researcher when you are ready"
-            waitForKey(variables.ser)
-            variables.ser.reset_input_buffer()
+        core.wait(0.5)
+        waitForKey(variables.ser)
+        variables.ser.reset_input_buffer()
 
         ## Presenting a message about some initialization
         present_message("initialization")
@@ -83,6 +87,7 @@ def main():
             else:
                 present_message("explanation_remember_yes_left")
 
+            core.wait(0.5)
             waitForKey(variables.ser)
             variables.ser.reset_input_buffer()
 
@@ -96,6 +101,7 @@ def main():
 
     ################  Thank you message and end sequence  ################
     present_message("thanks")
+    core.wait(0.5)
     waitForKey(variables.ser)
     event.clearEvents()
     print("experiment completed", file=behaviour)
@@ -111,4 +117,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

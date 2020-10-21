@@ -13,6 +13,7 @@ def show_cardimage(card_number):  # Presenting the scan of the chosen card or a 
 
     ## presenting the card ##
     card_image = Cards[image_number]['path']
-    img = visual.ImageStim(WIN, image=card_image, size=(240, 360))  # All images of cards are roughly 1200 x 1800 pixel
+    img = visual.ImageStim(WIN, image=card_image, size=(12, 23))  # All images of cards are roughly 1200 x 1800 pixel
     img.draw(WIN)
     WIN.flip()
+    return image_number

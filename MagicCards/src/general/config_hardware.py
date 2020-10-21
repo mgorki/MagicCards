@@ -7,11 +7,11 @@ scnHEIGHT = 1080
 MON = monitors.Monitor('myMac15', width=53.0, distance=60.0) # Has to be adjusted in the final experiment
 MON.setSizePix((scnWIDTH, scnHEIGHT))
 
-WIN = visual.Window((1200, 900), monitor='testMonitor', units='deg', allowStencil=True, color=[-1, -1, -1])  # Just for TESTING. In the final experiment the line below should be activate
-#WIN = visual.Window((scnWidth, scnHeight), fullscr=True, monitor=MON, units='deg', allowStencil=True, color=[-1,-1,-1])
+#WIN = visual.Window((1200, 900), monitor='testMonitor', units='deg', allowStencil=True, color=[-1, -1, -1])  # Just for TESTING. In the final experiment the line below should be activate
+WIN = visual.Window((scnWIDTH, scnHEIGHT), fullscr=True, monitor=MON, units='deg', allowStencil=True, color=[-1,-1,-1])
 
 ### Eyetracker configuration ###
-dummyMode = True  # Tracker simulation. If the experiment is run with the eyetracker dummyMode must be set to FALSE
+dummyMode = False  # Tracker simulation if set to True. If the experiment is run with the eyetracker dummyMode must be set to FALSE
 
 if not dummyMode:
     tk = pylink.EyeLink('100.1.1.1')

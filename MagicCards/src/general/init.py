@@ -10,8 +10,7 @@ import random
 import general.variables as variables
 
 
-
-def initLog():
+'''def initLog():
     myDlg = gui.Dlg(title="Magic Cards (TEST)")
     myDlg.addText('Subject info')
     myDlg.addField('Subject number:', str(159))
@@ -28,62 +27,37 @@ def initLog():
     else:
         print('user cancelled')
         exit()
-
+'''
 
 def initSer():  # set up the serial line for numberpad input and for the buttons I used via the same Arduino
-    ports = serial.tools.list_ports.comports(include_links=False)
-    i = len(ports)
+    ports = list(serial.tools.list_ports.comports(include_links=False))
     arduinos = []
     for port in ports:
-        if ARD_VID_PID in port[i]:
-            arduinos.append(port.device)  ## Init buttons
-            print("Arduino found at: " + port.device)
-        else:
-            i = i - 1
-
-    if len(arduinos) == 0:
-        print("No Arduino found, is it connected to a valid port? Crashing now.")
-    elif len(arduinos) == 1:
-        try:
-            variables.ser = serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
-            print("connected to Arduino at: %s with baudrate: %s" % (arduinos[0], BAUDRATE))
-            return serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
-        except:
-            print("There was an error at connecting to the Arduino. Is everything connected and configured properly?")
-    else:
-        print("More than one Arduino connected! Make sure only one such device is connected and retry. Crashing now.")
-
-    time.sleep(2)
-
-
-'''def initSer():  # set up the serial line for numberpad input and for the buttons I used via the same Arduino
-    ports = serial.tools.list_ports.comports(include_links=False)
-    arduinos = []
-    for port in ports:
-        if (ARD_VID_PID or ARD_NAME) in port.description:
-            arduinos.append(port.device)  ## Init buttons
-            print("Arduino found at: " + port.device)
+        if (str(ARD_VID_PID) in port.description) or (str(ARD_NAME) in port.description):
+            arduinos.append(port.device)
+            print("Arduino found at: " + str(port.device))
         else:
             pass
 
     if len(arduinos) == 0:
-        print("No Arduino found, is it connected to a valid port? Crashing now.")
+        print("No Arduino found! Is it connected to a valid port? Crashing now")
     elif len(arduinos) == 1:
         try:
-            variables.ser = serial.Serial(arduinos[0], BAUDRATE)  ## Init buttons
-            print("connected to Arduino at: %s with baudrate: %s" % (arduinos[0], BAUDRATE))
+            ser = serial.Serial(arduinos[0], BAUDRATE)  # init the buttons
+            variables.ser = ser
+            print("connected to Arduino at: %s with baudrate %s" % (arduinos[0], BAUDRATE))
         except:
-            print("There was an error at connecting to the Arduino. Is everything connected and configured properly?")
+            print("There was an error while connecting to the Arduino. Is everything coinnected and configured properly?")
     else:
-        print("""More than one Arduino connected! 
-        Make sure only one such device is connected and/or that the Arduinos VID:PID and its clear name are specific. 
-        Crashing now.""")
+        print("More than one Arduino connected! Make sure only one such device is connected and retry. Crashing now.")
 
-    time.sleep(2)'''
+    time.sleep(1)
+
+#    variables.ser = serial.Serial("COM5", 38400)  # for testing only
 
 
 def waitForKey(ser):
-    core.wait(.1)
+    core.wait(0.2)
     ser.reset_input_buffer()  # reset buttons
 
     while True:
@@ -99,20 +73,34 @@ def waitForKey(ser):
                 ser.reset_input_buffer()  # reset buttons
                 break
 
-'''        while True:
-        a = ser.readline().decode().rstrip()  # read button inputs, decode byte string into Unicode, remove \n and \r
-        if a != 'r':
-            pass
-        else:
-            ser.reset_input_buffer()  # reset buttons
-            break
-'''
+
+def waitForDecision(ser):
+    core.wait(.1)
+    ser.reset_input_buffer()  # reset buttons
+
+    while True:
+        a = ser.read()
+        print(a)  # for testing
+        if a == b"*":
+            a = ser.read(size=2)
+            print("button state")  # for testing
+            print(a)
+            if (a != b'01') and (a != b'10'):
+                pass
+            else:
+                ser.reset_input_buffer()  # reset buttons
+                if a == b'01':
+                    a = 'r'
+                else:
+                    a = 'l'
+                return a
+
 
 def initTk(expInfo):
     ## Data host ##
     if not os.path.exists(edfDataFolder):
         os.makedirs(edfDataFolder)
-    dataFileName = expInfo['Subject'] + '.EDF'
+    dataFileName = (expInfo['Subject'] + '.EDF')
     tk.openDataFile(dataFileName)
     # add personalized data file header (preamble text)
     tk.sendCommand("add_file_preamble_text 'Psychopy Waaaaazzzzzzooooo'")
@@ -126,7 +114,7 @@ def initTk(expInfo):
     tk.sendCommand('sample_rate 500')
     tk.sendCommand("screen_pixel_coords = 0 0 %d %d" % (scnWIDTH - 1, scnHEIGHT - 1))
     tk.sendMessage("DISPLAY_COORDS = 0 0 %d %d" % (scnWIDTH - 1, scnHEIGHT - 1))
-    tk.sendCommand("calibration_type = HV5")
+    #tk.sendCommand("hostVer = HV5")
     tk.sendCommand("recording_parse_type = GAZE")
 
     eyelinkVer = tk.getTrackerVersion()
@@ -152,10 +140,10 @@ def initTk(expInfo):
     return dataFileName
 
 def receiveData(dataFileName):
-    if not os.path.exists(edfDataFolder):
-        os.mkdir(edfDataFolder)
+    if not os.path.exists('edfData'):
+        os.mkdir('edfData')
     tk.receiveDataFile(dataFileName, 'edfData' + os.sep + dataFileName)
-    print("Data saved to: " + dataFileName, 'edfData' + os.sep + dataFileName)  # For testing
+    print("Data saved to: " + edfDataFolder, os.sep + dataFileName)  # For testing
 
 
 def initRandomMapping():
@@ -186,5 +174,3 @@ def initRandomMapping():
         }
 
     variables.RandomMapping = {**KeyMapping, **ColorMapping}  # Stores assignments in variables.RandomMapping dict
-
-
