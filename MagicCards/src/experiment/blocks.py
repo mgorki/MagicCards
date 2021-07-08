@@ -67,6 +67,7 @@ def block(practice, block_number):
     card_number = (card_input['card_selected'])
     questionlist = Cards[int(card_number)]["questions_asked"]  # Getting the List of questions according to the card selected as defined in the dictionary
     random.shuffle(questionlist)  # Randomizing the list
+    print(card_input['card_selected'])  #For testing only
 
     ## Setting number of initial trial to 1
     trial_number = 1
