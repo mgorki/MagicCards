@@ -1,6 +1,7 @@
 from psychopy import core, event, gui
 from general.config_hardware import WIN
 import general.variables as variables #import ser#, q
+import experiment.config_experiment as config_experiment
 
 
 ##Selected Card of a certain block (Dictionary)
@@ -45,7 +46,7 @@ def chooseCard():  ##Opens a dialog for entering a cards number (== variablename
             pad = ser.readline().decode().rstrip()
             print(pad)  # for testing
             pad = int(pad)
-            if pad in range(1, 22):  # If input is an existing card number
+            if pad in range(1, (config_experiment.NUMOFCARDS + 1)):  # If input is an existing card number
                 print(pad)  # for testing
                 card_input["card_selected"] = pad
                 # pad_data.append(pad_int) # add to the end of data list

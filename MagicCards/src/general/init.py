@@ -10,7 +10,7 @@ import random
 import general.variables as variables
 
 
-'''def initLog():
+def initLog():
     myDlg = gui.Dlg(title="Magic Cards (TEST)")
     myDlg.addText('Subject info')
     myDlg.addField('Subject number:', str(159))
@@ -27,7 +27,7 @@ import general.variables as variables
     else:
         print('user cancelled')
         exit()
-'''
+
 
 def initSer():  # set up the serial line for numberpad input and for the buttons I used via the same Arduino
     ports = list(serial.tools.list_ports.comports(include_links=False))
