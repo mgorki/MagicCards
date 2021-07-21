@@ -1,7 +1,7 @@
 from psychopy import gui, core
 import serial, serial.tools.list_ports
 import time
-from general.config_hardware import WIN, tk, scnWIDTH, scnHEIGHT, BAUDRATE, ARD_VID_PID, ARD_NAME
+from general.config_hardware import WIN, tk, scnWIDTH, scnHEIGHT, BAUDRATE, BOARD_VID_PID, BOARD_NAMES, BUTTONMODE
 import os
 from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 import pylink
@@ -31,25 +31,25 @@ def initLog():
 
 def initSer():  # set up the serial line for numberpad input and for the buttons I used via the same Arduino
     ports = list(serial.tools.list_ports.comports(include_links=False))
-    arduinos = []
+    boards = []
     for port in ports:
-        if (str(ARD_VID_PID) in port.description) or (str(ARD_NAME) in port.description):
-            arduinos.append(port.device)
-            print("Arduino found at: " + str(port.device))
+        if (str(BOARD_VID_PID) in port.description) or any(name in port.description for name in BOARD_NAMES):
+            boards.append(port.device)
+            print("board found at: " + str(port.device))
         else:
             pass
 
-    if len(arduinos) == 0:
-        print("No Arduino found! Is it connected to a valid port? Crashing now")
-    elif len(arduinos) == 1:
+    if len(boards) == 0:
+        print("No board found! Is it connected to a valid port? Crashing now")
+    elif len(boards) == 1:
         try:
-            ser = serial.Serial(arduinos[0], BAUDRATE)  # init the buttons
+            ser = serial.Serial(boards[0], BAUDRATE)  # init the buttons
             variables.ser = ser
-            print("connected to Arduino at: %s with baudrate %s" % (arduinos[0], BAUDRATE))
+            print("connected to board at: %s with baudrate %s" % (boards[0], BAUDRATE))
         except:
-            print("There was an error while connecting to the Arduino. Is everything coinnected and configured properly?")
+            print("There was an error while connecting to the board. Is everything coinnected and configured properly?")
     else:
-        print("More than one Arduino connected! Make sure only one such device is connected and retry. Crashing now.")
+        print("More than one board connected! Make sure only one such device is connected and retry. Crashing now.")
 
     time.sleep(1)
 
@@ -58,42 +58,58 @@ def initSer():  # set up the serial line for numberpad input and for the buttons
 
 def waitForKey(ser):
     core.wait(0.2)
-    ser.reset_input_buffer()  # reset buttons
-
-    while True:
-        a = ser.read()
-        print(a)  # for testing
-        if a == b"*":
-            a = ser.read(size=2)
-            print("button state")  # for testing
-            print(a)
-            if a != b'01':
-                pass
-            else:
-                ser.reset_input_buffer()  # reset buttons
-                break
+    
+    if BUTTONMODE == True:
+        ser.reset_input_buffer()  # reset buttons
+        while True:
+            a = ser.read()
+            print(a)  # for testing
+            if a == b"*":
+                a = ser.read(size=2)
+                print("button state")  # for testing
+                print(a)
+                if a != b'01':
+                    pass
+                else:
+                    ser.reset_input_buffer()  # reset buttons
+                    break
+    else: 
+        variables.io.clearEvents(device_label='all')
+        variables.io.devices.keyboard.waitForKeys(keys=['l'])
+        pass
 
 
 def waitForDecision(ser):
-    core.wait(.1)
-    ser.reset_input_buffer()  # reset buttons
+    core.wait(0.1)
+    if BUTTONMODE == True:
+        ser.reset_input_buffer()  # flushing the input buffer
+    else:        
+        variables.io.clearEvents(device_label='all')  #Flushing the buffer.
 
-    while True:
-        a = ser.read()
-        print(a)  # for testing
-        if a == b"*":
-            a = ser.read(size=2)
-            print("button state")  # for testing
-            print(a)
-            if (a != b'01') and (a != b'10'):
-                pass
-            else:
-                ser.reset_input_buffer()  # reset buttons
-                if a == b'01':
-                    a = 'r'
+    if BUTTONMODE == True:  # if using external buttons
+        while True:
+            a = ser.read()
+            print(a)  # for testing
+            if a == b"*":
+                a = ser.read(size=2)
+                print("button state")  # for testing
+                print(a) # for testing
+                if (a != b'01') and (a != b'10'):
+                    pass
                 else:
-                    a = 'l'
-                return a
+                    ser.reset_input_buffer()  # reset buttons
+                    if a == b'01':
+                        a = 'r'
+                    else:
+                        a = 'l'
+                    return a
+    else:  # if using normal keyboards
+        variables.io.devices.keyboard.waitForKeys(keys=['l', 's'])
+        a = variables.io.devices.keyboard.getKeys()
+        a = a[0].key
+        print(a)  # For testing only
+        return a
+
 
 
 def initTk(expInfo):
