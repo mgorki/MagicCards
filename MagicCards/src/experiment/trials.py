@@ -1,6 +1,6 @@
 import general.variables as variables
 #from general.variables import timer, ser#, q
-from general.config_hardware import WIN, tk
+from general.config_hardware import WIN, tk, BUTTONMODE
 from general.messages import present_message
 from general import effects
 from psychopy import visual, core, event
@@ -27,7 +27,10 @@ def trial(word):
 
     target = visual.TextStim(WIN, text=word, pos=[0, 0], alignHoriz='center')  # stimulus (i.e. the word)
     target.draw()
-    variables.ser.reset_input_buffer()  # flushing the input buffer
+    if BUTTONMODE == True:
+        variables.ser.reset_input_buffer()  # Flushing the input buffer
+    else:        
+        variables.io.clearEvents(device_label='all')  # Flushing the buffer.
     core.wait(0.2)
     #q.queue.clear()  # flushing the queue
     variables.timer.reset(newT=0.0)
@@ -40,64 +43,128 @@ def trial(word):
 
     i = 0  # for testing only
 
-    while True:
-        i = i + 1  # for testing only
-        key_input = variables.ser.read()
-        if key_input == b"*": key_input = variables.ser.read(size=2)
+    if BUTTONMODE == True:  # Version with external buttons
+        while True:
+            #i = i + 1  # for testing only
+            keyInput = variables.ser.read()
+            if keyInput == b"*": keyInput = variables.ser.read(size=2)
 
-        if key_input in [b'10', b'01'] and variables.timer.getTime() < timestamp_target + 0.07:  # Value to be adjusted for final experiment
-            tk.sendMessage('tooEarlyOnset')
-            WIN.flip()
-            event.clearEvents()
-            present_message("early")  # "Too early"
-            tooEarly = True
-            core.wait(1)
-            tk.sendMessage('tooEarlyEnd')
-            print(i)  # For testing only
-            break
-
-
-        if screenRefreshed == False and variables.timer.getTime() > (timestamp_target + 0.5):  # q.empty():  # Value to be adjusted for final experiment
-            screenRefreshed = True
-            WIN.flip()
-            tk.sendMessage('Blackscreen')
-            event.clearEvents()
-            print(i)  # For testing only
-            pass
+            if keyInput in [b'10', b'01'] and variables.timer.getTime() < timestamp_target + 0.07:  # Value to be adjusted for final experiment
+                tk.sendMessage('tooEarlyOnset')
+                WIN.flip()
+                event.clearEvents()
+                present_message("early")  # "Too early"
+                tooEarly = True
+                core.wait(1)
+                tk.sendMessage('tooEarlyEnd')
+                #print(i)  # For testing only
+                break
 
 
-        if key_input in [b'10', b'01']:  # If any button is pressed
-            print("button pressed")  # For testing
-            button_pressed = True
-            timestamp_reaction = variables.timer.getTime()
-            tk.sendMessage('Reaction')
-            ##If the reaction is so early that no target-specific reaction can be assumed -> "Too early"
-            if key_input == b'10': key = 'l'
-            if key_input == b'01': key = 'r'
-            #WIN.flip()
-            core.wait(0.3)
-            timestamp_effect = variables.timer.getTime()
-            tk.sendMessage('EffectOnset')
-            effects.reaction(key)
-            tk.sendMessage('EffectEnd')
-            inTime = True
-
-            print(key)  # For testing
-            print(i)  # For testing only
-            inTime = True
-            break
+            if screenRefreshed == False and variables.timer.getTime() > (timestamp_target + 0.5):  # q.empty():  # Value to be adjusted for final experiment
+                screenRefreshed = True
+                WIN.flip()
+                tk.sendMessage('Blackscreen')
+                event.clearEvents()
+                #print(i)  # For testing only
+                pass
 
 
-        ##If there is no response within the given timeframe -> "Too late"
-        if variables.timer.getTime() > (timestamp_target + 2): #and not button_pressed:  # q.empty():
-            event.clearEvents()
-            present_message("late")  # "Too late"
-            tk.sendMessage('tooLateOnset')
-            tooLate = True
-            core.wait(1)
-            tk.sendMessage('tooLateEnd')
-            print(i)  # For testing only
-            break
+            if keyInput in [b'10', b'01']:  # If any button is pressed
+                print("button pressed")  # For testing
+                button_pressed = True
+                timestamp_reaction = variables.timer.getTime()
+                tk.sendMessage('Reaction')
+                ##If the reaction is so early that no target-specific reaction can be assumed -> "Too early"
+                if keyInput == b'10': key = 'l'
+                if keyInput == b'01': key = 'r'
+                #WIN.flip()
+                core.wait(0.3)
+                timestamp_effect = variables.timer.getTime()
+                tk.sendMessage('EffectOnset')
+                effects.reaction(key)
+                tk.sendMessage('EffectEnd')
+                inTime = True
+
+                print(key)  # For testing
+                #print(i)  # For testing only
+                inTime = True
+                break
+
+
+            ##If there is no response within the given timeframe -> "Too late"
+            if variables.timer.getTime() > (timestamp_target + 2): #and not button_pressed:  # q.empty():
+                event.clearEvents()
+                present_message("late")  # "Too late"
+                tk.sendMessage('tooLateOnset')
+                tooLate = True
+                core.wait(1)
+                tk.sendMessage('tooLateEnd')
+                #print(i)  # For testing only
+                break
+
+    else:  # if used with normal keyboard keys
+        keyInput = []
+        while True:
+            #i = i + 1  # for testing only
+            keyboardActivity = variables.io.devices.keyboard.getKeys()
+            if keyboardActivity != []:
+                keyInput = keyboardActivity[0].key
+
+
+            if keyInput in ['s', 'l'] and variables.timer.getTime() < timestamp_target + 0.07:  # Value to be adjusted for final experiment
+                tk.sendMessage('tooEarlyOnset')
+                WIN.flip()
+                event.clearEvents()
+                present_message("early")  # "Too early"
+                tooEarly = True
+                core.wait(1)
+                tk.sendMessage('tooEarlyEnd')
+                #print(i)  # For testing only
+                break
+
+
+            if screenRefreshed == False and variables.timer.getTime() > (timestamp_target + 0.5):  # q.empty():  # Value to be adjusted for final experiment
+                screenRefreshed = True
+                WIN.flip()
+                tk.sendMessage('Blackscreen')
+                event.clearEvents()
+                #print(i)  # For testing only
+                pass
+
+
+            if keyInput in ['s', 'l']:  # If any button is pressed
+                print("button pressed")  # For testing
+                button_pressed = True
+                timestamp_reaction = variables.timer.getTime()
+                tk.sendMessage('Reaction')
+                ##If the reaction is so early that no target-specific reaction can be assumed -> "Too early"
+                if keyInput == 's': key = 'l'
+                if keyInput == 'l': key = 'r'
+                #WIN.flip()
+                core.wait(0.3)
+                timestamp_effect = variables.timer.getTime()
+                tk.sendMessage('EffectOnset')
+                effects.reaction(key)
+                tk.sendMessage('EffectEnd')
+                inTime = True
+
+                print(key)  # For testing
+                #print(i)  # For testing only
+                inTime = True
+                break
+
+
+            ##If there is no response within the given timeframe -> "Too late"
+            if variables.timer.getTime() > (timestamp_target + 2): #and not button_pressed:  # q.empty():
+                event.clearEvents()
+                present_message("late")  # "Too late"
+                tk.sendMessage('tooLateOnset')
+                tooLate = True
+                core.wait(1)
+                tk.sendMessage('tooLateEnd')
+                #print(i)  # For testing only
+                break
 
 
 

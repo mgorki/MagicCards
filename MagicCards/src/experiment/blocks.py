@@ -8,7 +8,7 @@ from general.messages import present_message
 from experiment.trials import trial
 #from general.variables import ser, ITI500, RandomMapping#, q
 from experiment.config_experiment import behaviour, trial_max
-from general.arduino import card_input#, readSer
+from general.board import card_input#, readSer
 import general.variables as variables
 from experiment.show_image import show_cardimage
 import pylink

@@ -5,8 +5,8 @@ from general.messages import present_message
 from experiment.blocks import block
 from experiment.config_experiment import behaviour, block_max
 import general.variables as variables
-from general.arduino import chooseCard
-import ast
+from general.board import chooseCard
+#import ast
 
 
 
