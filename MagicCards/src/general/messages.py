@@ -24,6 +24,8 @@ Im Folgenden werden dir einige Begriffe auf dem Bildschirm angezeigt.
 Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
 Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
 
+ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+
 Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
 
@@ -46,6 +48,8 @@ Bei diesem Experiment musst du möglichst schnell reagieren.
 Im Folgenden werden dir einige Begriffe auf dem Bildschirm angezeigt.
 Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
 Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+
+ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
 
 Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
@@ -93,9 +97,17 @@ Dies kann einen Moment dauern.""",
 Zum STARTEN: RECHTS""",
 
 ### explanation_remember ###
-    "explanation_remember_yes_right": """Something, something, something...
-
+    "explanation_remember_yes_right": """
         Zur Erinnerung:
+
+        Bei diesem Experiment musst du möglichst schnell reagieren.
+
+        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
+        Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+
+        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+
+        Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
         es gibt etwas, dass dem Begriff entspricht:
         RECHTE TASTE
@@ -113,6 +125,15 @@ Zum STARTEN: RECHTS""",
     "explanation_remember_yes_left": """Something, something, something...
 
         Zur Erinnerung:
+
+        Bei diesem Experiment musst du möglichst schnell reagieren.
+
+        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
+        Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+
+        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+
+        Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
         es gibt etwas, dass dem Begriff entspricht:
         LINKE TASTE
@@ -143,6 +164,24 @@ Zum STARTEN: RECHTS""",
         LINKE TASTE""",
 
     "card_correct_left": """War das die richtige Karte?
+
+        Falls ja:
+        LINKE TASTE
+
+        Falls nein:
+        RECHTE TASTE""",
+
+
+### was this the correct card?  ###
+    "unintentional_response_right": """Hast du bei irgendeinem Wort versehentlich anders reagiert, als du es wolltest?
+
+        Falls ja:
+        RECHTE TASTE
+
+        Falls nein:
+        LINKE TASTE""",
+
+    "unintentional_response_left": """Hast du bei irgendeinem Wort versehentlich anders reagiert, als du es wolltest?
 
         Falls ja:
         LINKE TASTE
