@@ -59,7 +59,7 @@ def main():
 
     ################ Block Structure ################
     ## Setting up a block-counter and a loop of 10 blocks ##
-    block_number = 1
+    block_number = 0
     while block_number <= block_max:  # Set block_max in the config_experiment file in order to run more or less blocks
         if block_number == 0:
             practice = True
@@ -69,6 +69,12 @@ def main():
         ## Choosing a (new) card and running a block ##
         if practice:
             present_message("practice_ready")  # "Please advice the researcher when you are ready"
+        elif block_number == 1:
+            present_message("practice_finished")
+            core.wait(0.5)
+            waitForKey(variables.ser)
+            variables.ser.reset_input_buffer()
+            present_message("choose_ready")
         else:
             present_message("choose_ready")  # "Choose a new card and advice the researcher when you are ready"
         core.wait(0.5)
@@ -91,7 +97,7 @@ def main():
             waitForKey(variables.ser)
             variables.ser.reset_input_buffer()
 
-        block_number = block_number + 1  # raises the block_number after each block by one
+        block_number += 1  # raises the block_number after each block by one
 
     ## Receiving data from the eyetracker (if not in dummy mode) ##
     if not dummyMode:

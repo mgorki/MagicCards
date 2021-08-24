@@ -7,7 +7,7 @@ from random import randrange
 def show_cardimage(card_number):  # Presenting the scan of the chosen card or a random other card
     randnum = randrange(1, 101)
     if randnum in range(1, ((100 - config_experiment.PERCENTAGECORRECTCARD) + 1)): # If random number (from 1 to 100) is in range defined for erroneosly showing a random cards image
-        randcard = randrange(1, (config_experiment.NUMOFCARDS + 1))  # choosing a random card within the range of existing cards
+        randcard = randrange(1, (config_experiment.NUMOFIMAGES + 1))  # choosing a random card within the range of images
         image_number = randcard
     else:
         image_number = card_number  # show the card actually chosen

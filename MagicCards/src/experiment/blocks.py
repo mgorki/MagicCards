@@ -6,10 +6,11 @@ from general.init import waitForKey, waitForDecision
 from general.config_hardware import tk, dummyMode, WIN
 from general.messages import present_message
 from experiment.trials import trial
+from general.board import card_input#, readSer
+from general.questionnaires import formUnintentional
+import general.variables as variables
 #from general.variables import ser, ITI500, RandomMapping#, q
 from experiment.config_experiment import behaviour, trial_max
-from general.board import card_input#, readSer
-import general.variables as variables
 from experiment.show_image import show_cardimage
 import pylink
 
@@ -55,7 +56,7 @@ def sendBehavData(data):
 def block(practice, block_number):
     ################ Block structure (after choosing a card) ################
     ##Preparing the next trials
-    if not (dummyMode or practice):
+    if not dummyMode:  #if not (dummyMode or practice):
         present_message("calibration")
         waitForKey(variables.ser)
         tk.doTrackerSetup() #Calibrating the eyetracker
@@ -75,6 +76,7 @@ def block(practice, block_number):
     present_message("start_ready")  # "Einrichtung abgeschlossen. Zum STARTEN: RECHTS"
     waitForKey(variables.ser)
     variables.ser.reset_input_buffer()
+    wordlist = []  # flushing wordlist used later for intentionality check
 
     ##Setting up a trial-counter and a loop for a block of 10 trials
     while trial_number <= trial_max:
@@ -85,6 +87,7 @@ def block(practice, block_number):
         ##Defining the word used in the respective trial from the randomized wordlist
         word_number = questionlist[int(trial_number - 1)]  # Choosing the 1st, 2nd 3rd... word from the (randomized) list. This variable could also be just the variable "word" used below but I defined an extra variable for more clarity.
         word = Questions[int(word_number)]["text"]  # The translation of the words number into actual text (according to the "Questions" dictionary)
+        wordlist.append(word)
         # print(word) #for testing only
         core.wait(0.5)
 
@@ -106,9 +109,9 @@ def block(practice, block_number):
         }
         data.update(trial(word))  # Calling trial function and appending data from this trial to data dictionary.
         data.update({"ResponseCorrect": checkCorrectness(word_number, card_number, data, variables.RandomMapping)})  # Checking whether response was correct and appending this information (boolean) to data
-
         tk.sendCommand('clear_screen 0')
-        sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
+        if not practice:
+            sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
         tk.stopRecording()
         tk.sendMessage('TRIAL_RESULT')
         pylink.pumpDelay(50)
@@ -129,8 +132,24 @@ def block(practice, block_number):
         present_message("card_correct_left")
     decision = waitForDecision(variables.ser)
 
-    data.update({
-        "CardImagePresented": image_presented,
-        "CardImageCorrect": checkMeaning(decision)
-    })  # Appending information  to data on the presented card image (int) and whether participant evaluated it to be the correct card (boolean)
-    sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
+    ## sequence asking whether there were any unintentional reactions and if so which ##
+    if variables.RandomMapping['KeyYes'] == 'r':
+        present_message("unintentional_response_right")
+    else:
+        present_message("unintentional_response_left")
+    core.wait(0.7)
+    anyUnintentional = checkMeaning(waitForDecision(variables.ser))
+    if anyUnintentional == True:
+        #whichUnintentional = "TEST123" # for testing ONLY. Must not be activre oin final experiment
+        whichUnintentional = formUnintentional(wordlist)  # Present form asking for which responses were unintentional
+    else:
+        whichUnintentional = None
+
+    if not practice:
+        data.update({
+            "CardImagePresented": image_presented,
+            "CardImageCorrect": checkMeaning(decision),
+            "AnyUnintentionalReactions": anyUnintentional,
+            "whichUnintentionalReactions(form)": whichUnintentional
+        })  # Appending information  to data on the presented card image (int) and whether participant evaluated it to be the correct card (boolean)
+        sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
