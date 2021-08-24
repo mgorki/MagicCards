@@ -104,12 +104,18 @@ def waitForDecision(ser):
                         a = 'l'
                     return a
     else:  # if using normal keyboards
-        variables.io.devices.keyboard.waitForKeys(keys=['l', 's'])
-        a = variables.io.devices.keyboard.getKeys()
-        a = a[0].key
-        print(a)  # For testing only
-        return a
-
+        core.wait(0.1)
+        while True:
+            a = variables.io.devices.keyboard.getKeys()
+            if a != []:
+                if a[0].key == 's':
+                    a = 'l'
+                    print(a)  # For testing only
+                    return a
+                if a[0].key == 'l':
+                    a = 'r'
+                    print(a)  # For testing only
+                    return a
 
 
 def initTk(expInfo):

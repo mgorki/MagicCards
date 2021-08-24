@@ -11,7 +11,7 @@ MON.setSizePix((scnWIDTH, scnHEIGHT))
 WIN = visual.Window((scnWIDTH, scnHEIGHT), fullscr=True, monitor=MON, units='deg', allowStencil=True, color=[-1,-1,-1])
 
 ### Eyetracker configuration ###
-dummyMode = True  # Tracker simulation if set to True. If the experiment is run with the eyetracker dummyMode must be set to FALSE
+dummyMode = False  # Tracker simulation if set to True. If the experiment is run with the eyetracker dummyMode must be set to FALSE
 
 if not dummyMode:
     tk = pylink.EyeLink('100.1.1.1')
@@ -25,4 +25,3 @@ BUTTONMODE = False # Set to True if external buttons are used. Otherwise keyboar
 BOARD_VID_PID = "VID:PID=2341:0043"  # The VID/PID of the Arduino that is used (has to be adjusted according to the model)
 BOARD_NAMES = ["Arduino", "USB-SERIAL CH340"]  # List of clear names of any Arduino or other Microcontroler that may be used (has to be adjusted specific model(s) if more than one are connected at the same time)
 BAUDRATE = 38400 if BUTTONMODE == True else 9600 # Baudrate depending on whether using a board with buttons or only using board for input of card number
-

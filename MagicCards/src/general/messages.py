@@ -10,11 +10,12 @@ messages = {
 ### welcome ###
     "welcome": """Herzlich Willkommen zum Experiment!
 
-Vor dir liegt ein Stapel mit Karten. Bitte wähle eine Karte.
+Vor dir liegt ein Stapel mit Karten. Bitte wähle eine Karte und schaue dir genau an, was auf ihr abgebildet ist.
+Wenn du damit fertig bist, lege die Karte auf dem Tisch rechts zur Seite.
 
 
 
-WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+WEITER mit RECHTS""",
 
 ### explanation_initial ###
     "explanation_initial_yes_right": """Bitte lege nun deine ZEIGEFINGER auf die beiden Tasten vor dir.
@@ -24,7 +25,7 @@ Im Folgenden werden dir einige Begriffe auf dem Bildschirm angezeigt.
 Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
 Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
 
-ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.
 
 Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
@@ -40,7 +41,7 @@ HAST DU NOCH FRAGEN?
 Dann wende dich bitte an den Versuchsleiter.
 
 
-WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+WEITER mit RECHTS""",
 
     "explanation_initial_yes_left": """Bitte lege nun deine ZEIGEFINGER auf die beiden Tasten vor dir.
 Bei diesem Experiment musst du möglichst schnell reagieren.
@@ -49,7 +50,7 @@ Im Folgenden werden dir einige Begriffe auf dem Bildschirm angezeigt.
 Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
 Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
 
-ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.
 
 Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
@@ -65,7 +66,7 @@ HAST DU NOCH FRAGEN?
 Dann wende dich bitte an den Versuchsleiter.
 
 
-WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+WEITER mit RECHTS""",
 
 ### practice ###
     "practice": """Zunächst ein paar Fragen zum Üben.
@@ -78,6 +79,12 @@ WEITER mit RECHTS""",
 
 
 DANACH: Weiter mit RECHTS""" ,
+
+### practice finished###
+    "practice_finished": """Du hast die Übungsphase abgeschlossen.
+
+
+WEITER mit RECHTS""",
 
 ### choose_ready ###
     "choose_ready": """Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist
@@ -102,10 +109,9 @@ Zum STARTEN: RECHTS""",
 
         Bei diesem Experiment musst du möglichst schnell reagieren.
 
-        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
-        Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht. Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
 
-        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.
 
         Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
@@ -120,18 +126,16 @@ Zum STARTEN: RECHTS""",
     Dann wende dich bitte an den Versuchsleiter.
 
 
-    WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+    WEITER mit RECHTS""",
 
-    "explanation_remember_yes_left": """Something, something, something...
-
+    "explanation_remember_yes_left": """
         Zur Erinnerung:
 
         Bei diesem Experiment musst du möglichst schnell reagieren.
 
-        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht.
-        Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht. Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
 
-        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.  
+        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.
 
         Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
 
@@ -146,7 +150,7 @@ Zum STARTEN: RECHTS""",
     Dann wende dich bitte an den Versuchsleiter.
 
 
-    WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+    WEITER mit RECHTS""",
 
 ### calibration ###
     "calibration": "Kalibrierung des Eyetrackers \n\nSTARTEN mit RECHTS",
