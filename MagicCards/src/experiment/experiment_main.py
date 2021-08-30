@@ -1,5 +1,5 @@
 from psychopy import core, event
-from general.init import initLog, initTk, waitForKey, receiveData, initRandomMapping, initSer
+from general.init import initLog, initTk, waitForKey, receiveData, initMapping, initSer
 from general.config_hardware import WIN, tk, dummyMode
 from general.messages import present_message
 from experiment.blocks import block
@@ -26,8 +26,8 @@ def main():
     dataFileName = initTk(expInfo)  # inits the eyetracker and returns the name of the eyetracker-data file
 
     ## Initializing randomization of response keys and effect colors ##
-    initRandomMapping()  # Randomized assignment of effect colors and key for yes/no (stored in variables.RandomMapping)
-    print(variables.RandomMapping)  # For testing
+    initMapping()  # Randomized assignment of effect colors and key for yes/no (stored in variables.RandomMapping)
+    print(variables.Mapping)  # For testing
 
     ################################# Experiment ###########################################
 
@@ -41,7 +41,7 @@ def main():
     ######
 
     ##Explanations of what to do
-    if variables.RandomMapping["KeyYes"] == 'r':
+    if variables.Mapping["KeyYes"] == 'r':
         present_message("explanation_initial_yes_right")
     else:
         present_message("explanation_initial_yes_left")
@@ -69,12 +69,6 @@ def main():
         ## Choosing a (new) card and running a block ##
         if practice:
             present_message("practice_ready")  # "Please advice the researcher when you are ready"
-        elif block_number == 1:
-            present_message("practice_finished")
-            core.wait(0.5)
-            waitForKey(variables.ser)
-            variables.ser.reset_input_buffer()
-            present_message("choose_ready")
         else:
             present_message("choose_ready")  # "Choose a new card and advice the researcher when you are ready"
         core.wait(0.5)
@@ -85,10 +79,10 @@ def main():
         present_message("initialization")
         chooseCard()  # At this point the researcher gives input on the chosen card via the Arduino's numpad
 
-        block(practice, block_number)  # Runs a block of 10 trials
+        block(expInfo, practice, block_number)  # Runs a block of 10 trials
 
         if practice:
-            if variables.RandomMapping["KeyYes"] == 'r':
+            if variables.Mapping["KeyYes"] == 'r':
                 present_message("explanation_remember_yes_right")
             else:
                 present_message("explanation_remember_yes_left")

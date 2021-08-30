@@ -15,21 +15,25 @@ from experiment.show_image import show_cardimage
 import pylink
 
 
-
-def checkCorrectness(word_number, card_number, data, RandomMapping):  # Function returns whether response is correct or not (boolean)
+def checkTrueResponse(word_number, card_number, assignedMapping):  # Function returns whether response is correct or not (boolean)
     if (int(word_number) in (Cards[int(card_number)]["questions_yes"])):  # true if answer should be yes
-        response_should = RandomMapping["KeyYes"]
+        trueResponse = assignedMapping["KeyYes"]
     else:
-        response_should = RandomMapping["KeyNo"]
+        trueResponse = assignedMapping["KeyNo"]
 
-    if data["Response"] == response_should:  # True if the actual response matches the correct response
+    return trueResponse
+
+
+def checkCorrectness(word_number, card_number, data, assignedMapping):  # Function returns whether response is correct or not (boolean)
+    trueResponse = checkTrueResponse(word_number, card_number, assignedMapping)
+    if data["Response"] == trueResponse:  # True if the actual response matches the correct response
         return True
     else:
         return False
 
 
 def checkMeaning(key):  # Function returns whether keypress means yes or no
-    if key == variables.RandomMapping["KeyYes"]:  # true if answer should be yes
+    if key == variables.Mapping["KeyYes"]:  # true if answer should be yes
         meaning = True
     else:
         meaning = False
@@ -53,7 +57,7 @@ def sendBehavData(data):
     else:
         pass
 
-def block(practice, block_number):
+def block(expInfo, practice, block_number):
     ################ Block structure (after choosing a card) ################
     ##Preparing the next trials
     if not dummyMode:  #if not (dummyMode or practice):
@@ -77,6 +81,7 @@ def block(practice, block_number):
     waitForKey(variables.ser)
     variables.ser.reset_input_buffer()
     wordlist = []  # flushing wordlist used later for intentionality check
+    blockData = []  # For storing data of ALL trials within the block
 
     ##Setting up a trial-counter and a loop for a block of 10 trials
     while trial_number <= trial_max:
@@ -100,18 +105,21 @@ def block(practice, block_number):
             eyeTracked = 1
 
         ##Writing information on the trial into a data dictionary
-        data = {
+        trialData = {
+            "Subject_No": expInfo['Subject'],
             "BlockNumber": block_number,
             "TrialNumber": trial_number,
-            "ITIoffset": variables.ITI500,
+            "ITIoffset": round(variables.ITI500, 4),
             "CardNumber": card_number,
-            "RandomMapping": variables.RandomMapping,
+            **variables.Mapping  # Adds informations concerning the mapping of the keys for yes/no and the colors of the effects (circles) 
         }
-        data.update(trial(word))  # Calling trial function and appending data from this trial to data dictionary.
-        data.update({"ResponseCorrect": checkCorrectness(word_number, card_number, data, variables.RandomMapping)})  # Checking whether response was correct and appending this information (boolean) to data
+        trialData.update(trial(word))  # Calling trial function and appending data from this trial to data dictionary.
+        trialData.update({"ResponseCorrect": checkCorrectness(word_number, card_number, trialData, variables.Mapping)})  # Checking whether response was correct and appending this information (boolean) to data
+        trialData.update({"TrueResponseWouldBe": checkTrueResponse(word_number, card_number, variables.Mapping)})
         tk.sendCommand('clear_screen 0')
         if not practice:
-            sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
+            #sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
+            blockData.append(trialData)
         tk.stopRecording()
         tk.sendMessage('TRIAL_RESULT')
         pylink.pumpDelay(50)
@@ -126,14 +134,15 @@ def block(practice, block_number):
     core.wait(4)
     image_presented = show_cardimage(card_number)  # Present image of card
     core.wait(5)
-    if variables.RandomMapping['KeyYes'] == 'r':
+    if variables.Mapping['KeyYes'] == 'r':
         present_message("card_correct_right")
     else:
         present_message("card_correct_left")
     decision = waitForDecision(variables.ser)
 
+    '''
     ## sequence asking whether there were any unintentional reactions and if so which ##
-    if variables.RandomMapping['KeyYes'] == 'r':
+    if variables.Mapping['KeyYes'] == 'r':
         present_message("unintentional_response_right")
     else:
         present_message("unintentional_response_left")
@@ -143,13 +152,19 @@ def block(practice, block_number):
         #whichUnintentional = "TEST123" # for testing ONLY. Must not be activre oin final experiment
         whichUnintentional = formUnintentional(wordlist)  # Present form asking for which responses were unintentional
     else:
-        whichUnintentional = None
+        whichUnintentional = "None"
+    '''
+
+    whichUnintentional = formUnintentional(wordlist)  # Present form asking for which responses were unintentional
 
     if not practice:
-        data.update({
-            "CardImagePresented": image_presented,
-            "CardImageCorrect": checkMeaning(decision),
-            "AnyUnintentionalReactions": anyUnintentional,
-            "whichUnintentionalReactions(form)": whichUnintentional
-        })  # Appending information  to data on the presented card image (int) and whether participant evaluated it to be the correct card (boolean)
-        sendBehavData(data)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
+        for storedTrialData in blockData:
+            storedTrialData.update({
+                "CardImagePresented": image_presented,
+                "CardImageReportedlyCorrect": checkMeaning(decision),
+                # "AnyUnintentionalReactions": anyUnintentional,
+                "whichUnintentionalReactions(form)": whichUnintentional[blockData.index(storedTrialData)]
+            })  # Appending information  to data on the presented card image (int) and whether participant evaluated it to be the correct card (boolean)
+            sendBehavData(storedTrialData)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
+        sendBehavData("ENDofBLOCK") 
+        print(len(blockData))  # For Testing only
