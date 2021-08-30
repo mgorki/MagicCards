@@ -31,23 +31,44 @@ def main():
 
     ################################# Experiment ###########################################
 
+    tk.doTrackerSetup()
+
     #######Wellcoming message#######
-    ## Pick a card from the stack
     present_message("welcome")
     core.wait(0.5)
     waitForKey(variables.ser)
-    variables.ser.reset_input_buffer()
+    #variables.ser.reset_input_buffer()
+
+    present_message("welcome_2")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
+
+    present_message("welcome_3")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
+
+    present_message("welcome_4")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
 
     ######
 
     ##Explanations of what to do
+    present_message("explanation_initial_general")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
+
     if variables.Mapping["KeyYes"] == 'r':
         present_message("explanation_initial_yes_right")
     else:
         present_message("explanation_initial_yes_left")
     core.wait(0.5)
     waitForKey(variables.ser)
-    variables.ser.reset_input_buffer()
+    #variables.ser.reset_input_buffer()
     ######
 
     ###### Practice #####
@@ -59,7 +80,7 @@ def main():
 
     ################ Block Structure ################
     ## Setting up a block-counter and a loop of 10 blocks ##
-    block_number = 0
+    block_number = 1
     while block_number <= block_max:  # Set block_max in the config_experiment file in order to run more or less blocks
         if block_number == 0:
             practice = True

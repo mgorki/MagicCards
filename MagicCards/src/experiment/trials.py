@@ -8,7 +8,7 @@ import experiment.config_experiment as config_experiment
 import random
 
 
-def buttonTrial(word):
+def buttonTrial(word, delayEffectLeft, delayEffectRight):
     ## setting variables to their initial values
     tooEarly = False
     inTime = False
@@ -33,17 +33,22 @@ def buttonTrial(word):
         keyInput = variables.ser.read()
         if keyInput == b"*": keyInput = variables.ser.read(size=2)
 
-        if keyInput in [b'10', b'01'] and variables.timer.getTime() < (timestampFixation + durationFixation):  
+        if keyInput in [b'10', b'01'] and variables.timer.getTime() < (timestampFixation + durationFixation):
             tk.sendMessage('tooEarly_Onset')
             WIN.flip()
             event.clearEvents()
             present_message("early")  # "Too early"
             tooEarly = True
+            if keyInput == b'10':
+                key = 'l'
+                core.wait(delayEffectLeft)
+            if keyInput == b'01':
+                key = 'r'
             core.wait(config_experiment.DURATION_MESSAGE_TOOEARLY)
             break
 
 
-        if variables.timer.getTime() >= (timestampFixation + durationFixation):  
+        if variables.timer.getTime() >= (timestampFixation + durationFixation):
             event.clearEvents()
             #print(i)  # For testing only
             break
@@ -83,10 +88,13 @@ def buttonTrial(word):
                 timestamp_reaction = variables.timer.getTime()
                 tk.sendMessage('Reaction')
                 ##If the reaction is so early that no target-specific reaction can be assumed -> "Too early"
-                if keyInput == b'10': key = 'l'
-                if keyInput == b'01': key = 'r'
+                if keyInput == b'10':
+                    key = 'l'
+                    core.wait(delayEffectLeft)
+                if keyInput == b'01':
+                    key = 'r'
+                    core.wait(delayEffectRight)
                 #WIN.flip()
-                core.wait(config_experiment.DELAY_EFFECT1)
                 timestamp_effect = variables.timer.getTime()
                 tk.sendMessage('EffectOnset')
                 effects.reaction(key)
@@ -107,7 +115,7 @@ def buttonTrial(word):
                 tk.sendMessage('tooLate_Offset')
                 #print(i)  # For testing only
                 break
-    
+
         ### writing the data of the trial into the data dictionary ###
         trial_data = {
             "Stimulus": word,
@@ -119,7 +127,7 @@ def buttonTrial(word):
             "InTime": inTime,
             "DurationFixation": durationFixation
         }
-    
+
     else:  # If tooEarly == True
         ### writing the data of the trial into the data dictionary ###
         trial_data = {
@@ -134,10 +142,10 @@ def buttonTrial(word):
         }
 
     return trial_data
-    
 
 
-def noButtonTrial(word):
+
+def noButtonTrial(word, delayEffectLeft, delayEffectRight):
     ## setting variables to their initial values
     tooEarly = False
     inTime = False
@@ -149,7 +157,7 @@ def noButtonTrial(word):
     durationFixation = random.uniform(*config_experiment.DURATION_SPAN_FIXATION)  # Determining the random fixation period, within the predifined span
 
 
-    ##Presenting the fixation cross 
+    ##Presenting the fixation cross
     present_message("blackscreen")  # Blackscreen
     core.wait(config_experiment.DELAY_INITIAL)
     variables.io.clearEvents(device_label='all')  #Flushing the buffer.
@@ -166,7 +174,7 @@ def noButtonTrial(word):
         if keyboardActivity != []:
             keyInput = keyboardActivity[0].key
 
-        if keyInput in ['s', 'l'] and variables.timer.getTime() < (timestampFixation + durationFixation):  
+        if keyInput in ['s', 'l'] and variables.timer.getTime() < (timestampFixation + durationFixation):
             tk.sendMessage('tooEarly_Onset')
             WIN.flip()
             event.clearEvents()
@@ -177,7 +185,7 @@ def noButtonTrial(word):
             #print(i)  # For testing only
             break
 
-        if variables.timer.getTime() > (timestampFixation + durationFixation):  # q.empty():  
+        if variables.timer.getTime() > (timestampFixation + durationFixation):  # q.empty():
             event.clearEvents()
             #print(i)  # For testing only
             tk.sendMessage('Fixation_Offset')
@@ -219,10 +227,13 @@ def noButtonTrial(word):
                 timestamp_reaction = variables.timer.getTime()
                 tk.sendMessage('Reaction')
                 ##If the reaction is so early that no target-specific reaction can be assumed -> "Too early"
-                if keyInput == 's': key = 'l'
-                if keyInput == 'l': key = 'r'
+                if keyInput == 's':
+                    key = 'l'
+                    core.wait(delayEffectLeft)
+                if keyInput == 'l':
+                    key = 'r'
+                    core.wait(delayEffectRight)
                 #WIN.flip()
-                core.wait(config_experiment.DELAY_EFFECT1)
                 timestamp_effect = variables.timer.getTime()
                 tk.sendMessage('Effect_Onset')
                 effects.reaction(key)
@@ -245,7 +256,7 @@ def noButtonTrial(word):
                 #print(i)  # For testing only
                 break
 
-    
+
         ### writing the data of the trial into the data dictionary ###
         trial_data = {
             "Stimulus": word,
@@ -257,7 +268,7 @@ def noButtonTrial(word):
             "InTime": inTime,
             "DurationFixation": durationFixation
         }
-    
+
     else:  # If tooEarly == True
         ### writing the data of the trial into the data dictionary ###
         trial_data = {
@@ -275,10 +286,10 @@ def noButtonTrial(word):
 
 
 
-def trial(word):
+def trial(word, delayEffectLeft, delayEffectRight):
     if BUTTONMODE == True:
-        trialData = buttonTrial(word)
+        trialData = buttonTrial(word, delayEffectLeft, delayEffectRight)
     else:
-        trialData = noButtonTrial(word)
-    
+        trialData = noButtonTrial(word, delayEffectLeft, delayEffectRight)
+
     return trialData
