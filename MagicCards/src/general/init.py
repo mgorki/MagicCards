@@ -5,7 +5,7 @@ from general.config_hardware import WIN, tk, scnWIDTH, scnHEIGHT, BAUDRATE, BOAR
 import os
 from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 import pylink
-from experiment.config_experiment import behaviour, edfDataFolder
+from experiment.config_experiment import behaviour, edfDataFolder, MAPPING_BY_DIALOG
 import random
 import general.variables as variables
 
@@ -168,31 +168,58 @@ def receiveData(dataFileName):
     print("Data saved to: " + edfDataFolder, os.sep + dataFileName)  # For testing
 
 
-def initRandomMapping():
-    ## Randomized assignment of left/right key to answer yes/no ##
-    randmap = random.getrandbits(1)
-    if int(randmap) == 0:
-        KeyMapping = {
-            "KeyYes": 'r',
-            "KeyNo": 'l'
-        }
-    else:
-        KeyMapping = {
+def initMapping():
+    if MAPPING_BY_DIALOG == False:  # a pre-randomized assignment of conditions is entered via dialog
+        ## Assignment of left/right key to answer yes/no ##
+        if variables.infoBuffer['Button_mapping'] == 'yes = right':
+            KeyMapping = {
+                "KeyYes": 'r',
+                "KeyNo": 'l'
+            }
+        else:
+            KeyMapping = {
             "KeyYes": 'l',
             "KeyNo": 'r'
-        }
+            }
 
-    ## Randomized assignment of colors to the effects of keypresses (circles) ##
-    randeff = random.getrandbits(1)
-    if int(randeff) == 0:
-        ColorMapping = {
-            "ColorLeft": 'yellow',
-            "ColorRight": 'blue'
-        }
-    else:
-        ColorMapping = {
-            "ColorLeft": 'blue',
-            "ColorRight": 'yellow'
-        }
+        ## Assignment of colors to the effects of keypresses (circles) ##
+        if variables.infoBuffer['Color_mapping'] == 'yellow = left':
+            ColorMapping = {
+                "ColorLeft": 'yellow',
+                "ColorRight": 'blue'
+            }
+        else:
+            ColorMapping = {
+                "ColorLeft": 'blue',
+                "ColorRight": 'yellow'
+            }
 
-    variables.RandomMapping = {**KeyMapping, **ColorMapping}  # Stores assignments in variables.RandomMapping dict
+
+    else:  # if BALANCING_BY_DIALOG == False: performing a randomized assignment of conditions     
+        ## Randomized assignment of left/right key to answer yes/no ##
+        randmap = random.getrandbits(1)
+        if int(randmap) == 0:
+            KeyMapping = {
+                "KeyYes": 'r',
+                "KeyNo": 'l'
+            }
+        else:
+            KeyMapping = {
+                "KeyYes": 'l',
+                "KeyNo": 'r'
+            }
+
+        ## Randomized assignment of colors to the effects of keypresses (circles) ##
+        randeff = random.getrandbits(1)
+        if int(randeff) == 0:
+            ColorMapping = {
+                "ColorLeft": 'yellow',
+                "ColorRight": 'blue'
+            }
+        else:
+            ColorMapping = {
+                "ColorLeft": 'blue',
+                "ColorRight": 'yellow'
+            }
+
+    variables.Mapping = {**KeyMapping, **ColorMapping, "MappingByDialog": MAPPING_BY_DIALOG}  # Stores assignments in variables.RandomMapping dict

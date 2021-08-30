@@ -11,7 +11,7 @@ def formUnintentional(wordlist):
     j = i - 1
 
     for question in range(0, (numQuestions)):
-        questionDict = {"index": i, "itemText": wordlist[j], "itemWidth": 0.05, "type": "choice", "responseWidth": 0.4, "options": ["kein Versehen", "Versehen"], "ticks": [1,2], 'markerColor': [0.89, -0.35, -0.50], "layout": "horiz"}
+        questionDict = {"index": i, "itemText": wordlist[j], "itemWidth": 0.05, "type": "choice", "responseWidth": 0.4, "options": ["kein Lüge", "Lüge", "weiß nicht mehr"], "ticks": [1,2,3], 'markerColor': [0.89, -0.35, -0.50], "layout": "horiz"}
         surveyDicts.append(questionDict)
         i += 1
         j += 1
@@ -43,5 +43,5 @@ def formUnintentional(wordlist):
     WIN.flip(clearBuffer=True)
     print(answers)  # For testing only
     return answers
-    #print(survey.getData())  # For testing only
-    #return survey.getData()  # For getting the full survey data (it's a lot...) 
+                        #print(survey.getData())  # For testing only
+                        #return survey.getData()
