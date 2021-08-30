@@ -82,7 +82,7 @@ def main():
     ## Setting up a block-counter and a loop of 10 blocks ##
     block_number = 1
     while block_number <= block_max:  # Set block_max in the config_experiment file in order to run more or less blocks
-        if block_number == 0:
+        if block_number == 1:
             practice = True
         else:
             practice = False
