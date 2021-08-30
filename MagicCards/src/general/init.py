@@ -5,7 +5,7 @@ from general.config_hardware import WIN, tk, scnWIDTH, scnHEIGHT, BAUDRATE, BOAR
 import os
 from EyeLinkCoreGraphicsPsychoPy import EyeLinkCoreGraphicsPsychoPy
 import pylink
-from experiment.config_experiment import behaviour, edfDataFolder, MAPPING_BY_DIALOG
+from experiment.config_experiment import behaviour, edfDataFolder, MAPPING_BY_DIALOG, DELAY_EFFECT_SHORT, DELAY_EFFECT_LONG
 import random
 import general.variables as variables
 
@@ -58,7 +58,7 @@ def initSer():  # set up the serial line for numberpad input and for the buttons
 
 def waitForKey(ser):
     core.wait(0.2)
-    
+
     if BUTTONMODE == True:
         ser.reset_input_buffer()  # reset buttons
         while True:
@@ -73,7 +73,7 @@ def waitForKey(ser):
                 else:
                     ser.reset_input_buffer()  # reset buttons
                     break
-    else: 
+    else:
         variables.io.clearEvents(device_label='all')
         variables.io.devices.keyboard.waitForKeys(keys=['l'])
         pass
@@ -83,7 +83,7 @@ def waitForDecision(ser):
     core.wait(0.1)
     if BUTTONMODE == True:
         ser.reset_input_buffer()  # flushing the input buffer
-    else:        
+    else:
         variables.io.clearEvents(device_label='all')  #Flushing the buffer.
 
     if BUTTONMODE == True:  # if using external buttons
@@ -162,14 +162,14 @@ def initTk(expInfo):
     return dataFileName
 
 def receiveData(dataFileName):
-    if not os.path.exists('edfData'):
-        os.mkdir('edfData')
-    tk.receiveDataFile(dataFileName, 'edfData' + os.sep + dataFileName)
+    if not os.path.exists(edfDataFolder):
+        os.mkdir(edfDataFolder)
+    tk.receiveDataFile(dataFileName, edfDataFolder + os.sep + dataFileName)
     print("Data saved to: " + edfDataFolder, os.sep + dataFileName)  # For testing
 
 
 def initMapping():
-    if MAPPING_BY_DIALOG == False:  # a pre-randomized assignment of conditions is entered via dialog
+    if MAPPING_BY_DIALOG == True:  # a pre-randomized assignment of conditions is entered via dialog
         ## Assignment of left/right key to answer yes/no ##
         if variables.infoBuffer['Button_mapping'] == 'yes = right':
             KeyMapping = {
@@ -194,8 +194,20 @@ def initMapping():
                 "ColorRight": 'yellow'
             }
 
+        ## Assignment of long/short delay to effects on the left/right side ##
+        if variables.infoBuffer['Delay_Mapping'] == 'short = left':
+            DelayEffectMapping = {
+                "DelayEffectLeft": DELAY_EFFECT_SHORT,
+                "DelayEffectRight": DELAY_EFFECT_LONG
+            }
+        else:
+            DelayEffectMapping = {
+                "DelayEffectLeft": DELAY_EFFECT_LONG,
+                "DelayEffectRight": DELAY_EFFECT_SHORT
+            }
 
-    else:  # if BALANCING_BY_DIALOG == False: performing a randomized assignment of conditions     
+
+    else:  # if BALANCING_BY_DIALOG == False: performing a randomized assignment of conditions
         ## Randomized assignment of left/right key to answer yes/no ##
         randmap = random.getrandbits(1)
         if int(randmap) == 0:
@@ -222,4 +234,17 @@ def initMapping():
                 "ColorRight": 'yellow'
             }
 
-    variables.Mapping = {**KeyMapping, **ColorMapping, "MappingByDialog": MAPPING_BY_DIALOG}  # Stores assignments in variables.RandomMapping dict
+        ## Assignment of long/short delay to effects on the left/right side ##
+        random.getrandbits(1)
+        if int(randeff) == 0:
+            DelayEffectMapping = {
+                "DelayEffectLeft": DELAY_EFFECT_SHORT,
+                "DelayEffectRight": DELAY_EFFECT_LONG
+            }
+        else:
+            DelayEffectMapping = {
+                "DelayEffectLeft": DELAY_EFFECT_LONG,
+                "DelayEffectRight": DELAY_EFFECT_SHORT
+            }
+
+    variables.Mapping = {**KeyMapping, **ColorMapping, **DelayEffectMapping, "MappingByDialog": MAPPING_BY_DIALOG}  # Stores assignments in variables.RandomMapping dict

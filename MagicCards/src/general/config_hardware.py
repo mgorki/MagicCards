@@ -11,7 +11,7 @@ MON.setSizePix((scnWIDTH, scnHEIGHT))
 WIN = visual.Window((scnWIDTH, scnHEIGHT), fullscr=True, monitor=MON, units='deg', allowStencil=True, color=[-1,-1,-1])
 
 ### Eyetracker configuration ###
-dummyMode = True  # Tracker simulation if set to True. If the experiment is run with the eyetracker dummyMode must be set to FALSE
+dummyMode = False  # Tracker simulation if set to True. If the experiment is run with the eyetracker dummyMode must be set to FALSE
 
 if not dummyMode:
     tk = pylink.EyeLink('100.1.1.1')

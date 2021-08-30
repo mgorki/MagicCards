@@ -13,6 +13,7 @@ def infoDialog():
     if MAPPING_BY_DIALOG == True: 
         myDlg.addField('Button mapping:', choices=["yes = left", "yes = right"])
         myDlg.addField('Color mapping:', choices=["yellow = left", "blue = left"])
+        myDlg.addField('Effect delay:', choices=["short = left", "long = left"])
     
     myDlg.addText('Experiment Info')
 
@@ -21,7 +22,7 @@ def infoDialog():
     if myDlg.OK:  # or if ok_data is not None
         #print(dict(zip(['Subject', 'Sex', 'Age', 'Dominant_eye', 'Dominant_hand', 'Button_mapping', 'Color_mapping'], ok_data)))
         if MAPPING_BY_DIALOG == True: 
-            variables.infoBuffer = dict(zip(['Subject', 'Sex', 'Age', 'Dominant_eye', 'Dominant_hand', 'Button_mapping', 'Color_mapping'], ok_data))
+            variables.infoBuffer = dict(zip(['Subject', 'Sex', 'Age', 'Dominant_eye', 'Dominant_hand', 'Button_mapping', 'Color_mapping', 'Delay_Mapping'], ok_data))
         else:
             variables.infoBuffer = dict(zip(['Subject', 'Sex', 'Age', 'Dominant_eye', 'Dominant_hand'], ok_data))  
         print(variables.infoBuffer)

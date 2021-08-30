@@ -8,5 +8,5 @@ ser = ''  # Placeholder: serial connection to Arduino to which the buttons are c
 #q = queue.Queue()  # queue for threads
 timer = core.Clock()  # init the timer
 ITI500 = timer.getTime()
-Mapping = {}  # Placeholder: mapping of response keys and effect colors stored here by init.initRandomMapping()
+Mapping = {}  # Placeholder: mapping of response keys and effect colors stored here by init.initMapping()
 io = launchHubServer() # Start the ioHub process. 'io' can now be used during the experiment to access iohub devices and read iohub device events.
