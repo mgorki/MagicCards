@@ -3,15 +3,15 @@ from general.config_hardware import WIN
 import general.variables as variables
 
 
-### A form asking which responses were unintentional ###
-def formUnintentional(wordlist):
+### A form asking which responses were trueth/lie/unintentional/dont remember ###
+def formTrue(wordlist):
     numQuestions = len(wordlist)
     surveyDicts = []
     i = 1
     j = i - 1
 
     for question in range(0, (numQuestions)):
-        questionDict = {"index": i, "itemText": wordlist[j], "itemWidth": 0.05, "type": "choice", "responseWidth": 0.4, "options": ["kein Lüge", "Lüge", "weiß nicht mehr"], "ticks": [1,2,3], 'markerColor': [0.89, -0.35, -0.50], "layout": "horiz"}
+        questionDict = {"index": i, "itemText": wordlist[j], "itemWidth": 0.05, "type": "choice", "responseWidth": 0.4, "options": ["Wahrheit", "Lüge", "Fehler", "weiß nicht mehr"], "ticks": [1,2,3,4], 'markerColor': [0.89, -0.35, -0.50], "layout": "horiz"}
         surveyDicts.append(questionDict)
         i += 1
         j += 1

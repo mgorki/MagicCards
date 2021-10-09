@@ -131,6 +131,7 @@ def initTk(expInfo):
     ## Init parameters
     genv = EyeLinkCoreGraphicsPsychoPy(tk, WIN)
     pylink.openGraphicsEx(genv)
+    print("pylink initiated")  # For testing
 
     tk.setOfflineMode()
     tk.sendCommand('sample_rate 500')

@@ -15,7 +15,7 @@ In diesem Experiment wollen wir menschliches Lügen untersuchen und herausfinden
 Nach einigen Fragen werden wir dich dann jeweils bitten, nochmal anzugeben, bei welchen Fragen du gelogen hast, damit wir den Algorithmus basierend auf deinen Informationen anpassen können.
 
 
-WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+WEITER mit RECHTS""",
 
     "welcome_2": """Wir haben die Spielkarten bewusst so gewählt, dass diese vielfältige Fragen erlauben, aber keinerlei Aussagen über dich persönlich ermöglichen. Das heißt, der Computer kann aus deinen Antworten KEINE persönlichen Informationen über dich herausfinden. Weiterhin werden alle Daten komplett anonymisiert gespeichert, so dass nach Abschluss des Experiments keine Verbindung zwischen dir und deinen Daten hergestellt werden kann.
 
@@ -31,7 +31,7 @@ STARTEN mit RECHTS""",
 
 WEITER mit RECHTS""",
 
-    "welcome_4": """Bitte wähle jetzt für die Übung eine Spielkarte,schaue dir genau an, was auf ihr abgebildet ist und merke dir so gut du kanns, was auf der Spielkarte abgebildet ist.
+    "welcome_4": """Bitte wähle jetzt für die Übung eine Spielkarte, schaue dir genau an, was auf ihr abgebildet ist und merke dir so gut du kannst, was auf der Spielkarte abgebildet ist.
 
 Wenn du damit fertig bist, lege die Spielkarte offen nach rechts auf den Ablagebereich, damit du sie nicht versehentlich später nochmal ziehst.
 
@@ -56,36 +56,96 @@ WEITER mit RECHTS""",
 
 
     "explanation_initial_yes_right": """Um deine Antwort mitzuteilen, antworte bitte wie folgt:
+
 Wenn das im Begriff beschriebene MERKMAL auf der Spielkarte vorkommt, drücke bitte so schnell wie möglich die RECHTE TASTE.
+
 Wenn das im Begriff beschriebene MERKMAL auf der Spielkarte NICHT vorkommt, drücke bitte so schnell wie möglich die LINKE TASTE.
 
 
 WEITER mit RECHTS""",
 
     "explanation_initial_yes_left": """Um deine Antwort mitzuteilen, antworte bitte wie folgt:
+
 Wenn das im Begriff beschriebene MERKMAL auf der Spielkarte vorkommt, drücke bitte so schnell wie möglich die LINKE TASTE.
+
 Wenn das im Begriff beschriebene MERKMAL auf der Spielkarte NICHT vorkommt, drücke bitte so schnell wie möglich die RECHTE TASTE.
 
 
 WEITER mit RECHTS""",
 
+
+    "explanation_initial_important": """WICHTIG!
+
+Beim Beantworten der Fragen sollst du selbst wählen, wann du die Wahrheit sagst und wann du lügst. Mit Lügen ist hierbei gemeint, dass du bewusst und absichtlich genau die gegenteilige Antwort gibst. Wenn also beispielsweise ein bestimmtes Merkmal auf der Spielkarte enthalten ist, gibst du absichtlich an, dass das Merkmal NICHT enthalten sei.
+
+Wähle bei jeder Frage bitte ganz spontan, als würdest du eine Münze werfen, ob du lügen oder die Wahrheit sagen willst. Bitte triff diese Entscheidung bereits bevor der Begriff erscheint, das heißt während noch das Fixationskreuz + zu sehen ist. Wenn dann der Begriff erscheint, antworte so schnell und richtig wie möglich wahrheitsgemäß bzw. mit einer Lüge, je nachdem, wofür du dich entschieden hast.
+
+
+WEITER mit RECHTS""",
+
+
+    "explanation_initial_important_2": """Versuche dabei insgesamt bitte ungefähr gleich oft zu lügen und die Wahrheit zu sagen.
+
+Bitte merke dir, auf welche Frage du gelogen bzw. wahrheitsgemäß geantwortet hast. Du wirst nach einigen Fragen gebeten, dies anzugeben, damit der Algorithmus entsprechend lernen kann.
+
+
+
+WEITER mit RECHTS""",
+
+
+
+    "explanation_initial_procedure": """Das Experiment läuft so ab, dass jeweils pro Spielkarte mehrere Fragen direkt nacheinander gestellt werden. Nach deiner Antwort siehst du als Bestätigung kurz einen farbigen Kreis. Danach erscheint das nächste Fixationskreuz + und darauf folgt der nächste Begriff.
+
+Wähle jeweils, wie beschrieben schon beim Fixationskreuz +, wo du lügen oder die Wahrheit sagen willst und antworte dann so schnell und richtig wie möglich, sobald der Begriff erscheint.
+
+
+WEITER mit RECHTS""",
+
+
+    "explanation_initial_procedure_2": """Nach einigen Begriffen wirst du gebeten, anzugeben bei welchen Fragen/Begriffen du gelogen bzw. die Wahrheit gesagt hast. Dazu siehst du eine List der Begriffe in der Reihenfolge, in der sie erschienen sind. Verwende bitte die Maus, um anzugeben, ob du für den jeweiligen Begriff gelogen („Lüge“) oder die Wahrheit gesagt („Wahrheit“) hast. Falls du bei einem Begriff versehentlich einen Fehler gemacht und dich vertippt hast, wähle bitte „Fehler“. Im Fall, dass du dich für einen Begriff nicht mehr erinnern kannst, wähle bitte die Option „vergessen“ aus.
+
+Nachdem du alle Begriffe eingeordnet hast, kannst du eine Pause machen und anschließend mit der nächsten Spielkarte fortfahren.
+
+HAST DU FRAGEN?
+Dann wende dich bitte jetzt an die Versuchsleitung.
+
+
+WEITER mit RECHTS""",
+
+
 ### practice ###
-    "practice": """Zunächst ein paar Fragen zum Üben.
+    "practice": """Üben wir zunächst mit einer Spielkarte. Nimm dir jetzt bitte nochmal einen Moment Zeit, um dir die Spielkarte, die du vorhin bereits angeschaut hast, nochmal anzusehen und zu merken.
+Wenn du dir die Spielkarte gemerkt hast, lege sie bitte offen auf den Ablagestapel, platziere deine Finger auf den Tasten und lege deinen Kopf in die Kinnstütze.
+
+Bevor die Fragen starten wird die Versuchsleitung jetzt und vor den Fragen zu jeder weiteren Spielkarte, den Eye-Tracker auf deine Augen einstellen.
 
 
 WEITER mit RECHTS""",
 
 ### practice_ready ###
-    "practice_ready": """Bitte sag dem Versuchsleiter Bescheid, wenn du bereit bist,
+    "practice_ready": """Bitte sag der Versuchsleitung Bescheid, wenn du bereit bist,
 
 
 DANACH: Weiter mit RECHTS""" ,
+
+
+### practice_finished ###
+    "practice_finished": """SUPER!
+Du hast die Übung abgeschlossen.
+
+HAST DU NOCH FRAGEN?
+Wenn ja, wende dich bitte jetzt an die Versuchsleitung.
+
+
+WEITER mit RECHTS
+""",
+
 
 ### choose_ready ###
-    "choose_ready": """Wähle eine neue Karte und sag dem Versuchsleiter Bescheid, wenn du bereit bist
+    "choose_ready": """Wähle eine neue Spielkarte, betrachte diese genau und merke sie dir.
 
 
-DANACH: Weiter mit RECHTS""" ,
+Fragen STARTEN mit RECHTS""" ,
 
 ### initialization ###
     "initialization": """Experiment wird initialisiert.
@@ -99,60 +159,49 @@ Dies kann einen Moment dauern.""",
 Zum STARTEN: RECHTS""",
 
     "test":""" 123 123 123 test size""",
+
+
 ### explanation_remember ###
-    "explanation_remember_yes_right": """
-        Zur Erinnerung:
+    "explanation_remember_yes_right": """ERINNERUNG
 
-        Bei diesem Experiment musst du möglichst schnell reagieren.
+    +
+-> Enscheide! Lüge oder Wahrheit? Wähle beides jeweils ca. gleich oft
 
-        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht. Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+Begriff
+-> Antworte so schnell und richtig wie möglich!
 
-        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.
+•	Antwort: MERKMAL vorhanden -> RECHTE TASTE
+•	Antwort: MERKMAL NICHTvorhanden <- LINKE TASTE
 
-        Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
+Merke dir, wann du lügst bzw. die Wahrheit sagst!
 
-        es gibt etwas, dass dem Begriff entspricht:
-        RECHTE TASTE
+Gib nach den Fragen bitte an, für welche Frage du gelogen/die Wahrheit gesagt hast.
 
-        es gibt nichts, dass dem Begriff entspricht:
-        LINKE TASTE
+    Fragen zur Spielkarte STARTEN mit RECHTS""",
 
+    "explanation_remember_yes_left": """ERINNERUNG
 
-    HAST DU NOCH FRAGEN?
-    Dann wende dich bitte an den Versuchsleiter.
+    +
+-> Enscheide! Lüge oder Wahrheit? Wähle beides jeweils ca. gleich oft
 
+Begriff
+-> Antworte so schnell und richtig wie möglich!
 
-    WEITER mit RECHTS (press RIGHT to CONTINUE)""",
+•	Antwort: MERKMAL vorhanden -> LINKE TASTE
+•	Antwort: MERKMAL NICHTvorhanden <- RECHTE TASTE
 
-    "explanation_remember_yes_left": """
-        Zur Erinnerung:
+Merke dir, wann du lügst bzw. die Wahrheit sagst!
 
-        Bei diesem Experiment musst du möglichst schnell reagieren.
+Gib nach den Fragen bitte an, für welche Frage du gelogen/die Wahrheit gesagt hast.
 
-        Deine Aufgabe ist es, zu entscheiden, ob es auf der Karte vor dir etwas gibt, das dem Begriff entspricht. Wenn also z.B. das Wort "Blüte" erscheint, sollst du entscheiden, ob auf der Karte eine Blüte zu sehen ist.
+    Fragen zur Spielkarte STARTEN mit RECHTS""",
 
-        ABER: du kannst und sollst auch BLUFFEN. Bitte entscheide dafür zu ungefähr einem Drittel der Begriffe anders, als eigentlich richtig wäre.
-
-        Um deine Entscheidung mitzuteilen, benutze bitte die folgenden Tasten:
-
-        es gibt etwas, dass dem Begriff entspricht:
-        LINKE TASTE
-
-        es gibt nichts, dass dem Begriff entspricht:
-        RECHTE TASTE
-
-
-    HAST DU NOCH FRAGEN?
-    Dann wende dich bitte an den Versuchsleiter.
-
-
-    WEITER mit RECHTS (press RIGHT to CONTINUE)""",
 
 ### calibration ###
-    "calibration": "Kalibrierung des Eyetrackers \n\nSTARTEN mit RECHTS",
+    "calibration": """Bitte folge den Anweisungen der Versuchsleitung zur Einstellung des Eye-Trackers. Merke dir währenddessen deine Spielkarte.""",
 
 ### the card was probably ###
-    "card_image": "Die Karte war wahrscheinlich:",
+    "card_image": "Der Computer vermutet, dass das deine Karte war:",
 
 ### was this the correct card?  ###
     "card_correct_right": """War das die richtige Karte?
@@ -192,12 +241,12 @@ Zum STARTEN: RECHTS""",
 
 
 ### thanks ###
-    "thanks": """
-GESCHAFFT!
+    "thanks": """GESCHAFFT!
 
 Vielen Dank für deine Teilnahme!
 
-Fülle jetzt bitte noch kurz den Nachbefragungszettel aus, den dir der Versuchsleiter gibt.
+Fülle jetzt bitte noch kurz den Nachbefragungszettel aus, den dir die Versuchsleitung gibt.
+
 """
 }
 

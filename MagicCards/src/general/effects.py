@@ -30,7 +30,8 @@ def reaction(key):
 
 
 def cross():
-    cross = visual.ShapeStim(WIN, vertices=((0, -0.5), (0, 0.5), (0, 0), (-0.5, 0), (0.5, 0)), lineWidth=5, closeShape=False, lineColor="white")
+    # cross = visual.ShapeStim(WIN, vertices=((0, -0.5), (0, 0.5), (0, 0), (-0.5, 0), (0.5, 0)), lineWidth=5, closeShape=False, lineColor="white")
+    cross = visual.GratingStim(WIN, color="white", colorSpace='rgb', tex=None, mask='cross', size=1)
     cross.draw()
     WIN.flip()
 
