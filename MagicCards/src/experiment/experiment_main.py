@@ -9,7 +9,6 @@ from general.board import chooseCard
 #import ast
 
 
-
 def main():
     ###################Experiment starting sequence###########################
     tk.sendMessage('%d ITIoffset' % 0)
@@ -28,10 +27,14 @@ def main():
     ## Initializing randomization of response keys and effect colors ##
     initMapping()  # Randomized assignment of effect colors and key for yes/no (stored in variables.RandomMapping)
     print(variables.Mapping)  # For testing
+    print("variable mapping defined")  # For testing
 
     ################################# Experiment ###########################################
 
-    tk.doTrackerSetup()
+    if not dummyMode:
+        print("tracker setup started")
+        tk.doTrackerSetup()
+    print("tracker setup done")  # for testing
 
     #######Wellcoming message#######
     present_message("welcome")
@@ -69,6 +72,25 @@ def main():
     core.wait(0.5)
     waitForKey(variables.ser)
     #variables.ser.reset_input_buffer()
+
+    ##important
+    present_message("explanation_initial_important")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
+
+    ##Explanations of what to do
+    present_message("explanation_initial_procedure")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
+
+    ##Explanations of what to do
+    present_message("explanation_initial_procedure_2")
+    core.wait(0.5)
+    waitForKey(variables.ser)
+    #variables.ser.reset_input_buffer()
+
     ######
 
     ###### Practice #####
@@ -82,7 +104,7 @@ def main():
     ## Setting up a block-counter and a loop of 10 blocks ##
     block_number = 1
     while block_number <= block_max:  # Set block_max in the config_experiment file in order to run more or less blocks
-        if block_number == 1:
+        if block_number == 0:
             practice = True
         else:
             practice = False
@@ -103,14 +125,10 @@ def main():
         block(expInfo, practice, block_number)  # Runs a block of 10 trials
 
         if practice:
-            if variables.Mapping["KeyYes"] == 'r':
-                present_message("explanation_remember_yes_right")
-            else:
-                present_message("explanation_remember_yes_left")
-
+            present_message("practice_finished")
             core.wait(0.5)
             waitForKey(variables.ser)
-            variables.ser.reset_input_buffer()
+            #variables.ser.reset_input_buffer()
 
         block_number += 1  # raises the block_number after each block by one
 

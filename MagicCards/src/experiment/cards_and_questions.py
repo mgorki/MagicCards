@@ -152,32 +152,32 @@ Cards = {1: {
     23: {
         "card_number": 23,
         "path": "../resources/images/card_23.jpg",
-        "questions_asked": [], # PLACEHOLDER, has to be adjusted in the final experiment!
-        "questions_yes": []
+        "questions_asked": [1, 2, 3, 4, 14, 19, 22, 24, 26, 29], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 4, 14, 16, 19, 24, 26, 29] #2? 15?
     },
     24: {
-        "card_number": 23,
+        "card_number": 24,
         "path": "../resources/images/card_24.jpg",
-        "questions_asked": [], # PLACEHOLDER, has to be adjusted in the final experiment!
-        "questions_yes": []
+        "questions_asked": [1, 3, 4, 9, 10, 17, 19, 22, 25, 27], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 10, 14, 15, 17, 22, 24, 25, 26, 28]  # 8, 16, 29?
     },
     25: {
-        "card_number": 23,
+        "card_number": 25,
         "path": "../resources/images/card_25.jpg",
-        "questions_asked": [], # PLACEHOLDER, has to be adjusted in the final experiment!
-        "questions_yes": []
+        "questions_asked": [1, 4, 5, 7, 9, 10, 16, 17, 18, 28], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [1, 4, 7, 16, 17, 18]  # 1, 17?
     },
     26: {
-        "card_number": 23,
+        "card_number": 26,
         "path": "../resources/images/card_26.jpg",
-        "questions_asked": [], # PLACEHOLDER, has to be adjusted in the final experiment!
-        "questions_yes": []
+        "questions_asked": [1, 5, 8, 12, 13, 14, 15, 16, 18, 30], # PLACEHOLDER, has to be adjusted in the final experiment!
+        "questions_yes": [8, 14, 15, 16, 18, 26]
     },
     27: {
-        "card_number": 23,
+        "card_number": 27,
         "path": "../resources/images/card_27.jpg",
         "questions_asked": [], # PLACEHOLDER, has to be adjusted in the final experiment!
-        "questions_yes": []
+        "questions_yes": [1, 2, 7, 8, 18]  # 10?
     },
     28: {
         "card_number": 23,

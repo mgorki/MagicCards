@@ -7,7 +7,7 @@ from general.config_hardware import tk, dummyMode, WIN
 from general.messages import present_message
 from experiment.trials import trial
 from general.board import card_input#, readSer
-from general.questionnaires import formUnintentional
+from general.questionnaires import formTrue
 import general.variables as variables
 #from general.variables import ser, ITI500, RandomMapping#, q
 from experiment.config_experiment import behaviour, trial_max
@@ -62,10 +62,21 @@ def block(expInfo, practice, block_number):
     ##Preparing the next trials
     if not dummyMode:  #if not (dummyMode or practice):
         present_message("calibration")
-        waitForKey(variables.ser)
+        #waitForKey(variables.ser)
         tk.doTrackerSetup() #Calibrating the eyetracker
     core.wait(0.5)
     # io.clearEvents(device_label='all')  #Flushing the buffer. In the final experiment to be replaced by the following line
+    variables.ser.reset_input_buffer()
+
+    
+    ## Presenting the "remember: the instructions are..." message (according to mapping)
+    if variables.Mapping["KeyYes"] == 'r':
+        present_message("explanation_remember_yes_right")
+    else:
+        present_message("explanation_remember_yes_left")
+
+    core.wait(0.5)
+    waitForKey(variables.ser)
     variables.ser.reset_input_buffer()
 
     ##Creating a randomized List of questions for one block
@@ -94,7 +105,7 @@ def block(expInfo, practice, block_number):
         word = Questions[int(word_number)]["text"]  # The translation of the words number into actual text (according to the "Questions" dictionary)
         wordlist.append(word)
         # print(word) #for testing only
-        core.wait(0.5)
+        core.wait(0.05)
 
         tk.setOfflineMode()
         pylink.pumpDelay(50)
@@ -156,7 +167,9 @@ def block(expInfo, practice, block_number):
         whichUnintentional = "None"
     '''
 
-    whichUnintentional = formUnintentional(wordlist)  # Present form asking for which responses were unintentional
+    whichTrue = formTrue(wordlist)  # Present form asking for which responses were unintentional
+
+    WIN.mouseVisible = False
 
     if not practice:
         for storedTrialData in blockData:
@@ -164,8 +177,8 @@ def block(expInfo, practice, block_number):
                 "CardImagePresented": image_presented,
                 "CardImageReportedlyCorrect": checkMeaning(decision),
                 # "AnyUnintentionalReactions": anyUnintentional,
-                "whichUnintentionalReactions(form)": whichUnintentional[blockData.index(storedTrialData)]
+                "whichUnintentionalReactions(form)": whichTrue[blockData.index(storedTrialData)]
             })  # Appending information  to data on the presented card image (int) and whether participant evaluated it to be the correct card (boolean)
             sendBehavData(storedTrialData)  # Writing data to the behaviour-file and sending it (if not in dummy mode) to the eyetracker.
-        #sendBehavData("ENDofBLOCK") 
+        #sendBehavData("ENDofBLOCK")
         print(len(blockData))  # For Testing only
